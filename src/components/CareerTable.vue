@@ -74,10 +74,8 @@ function findLookupParam(name: string) {
       stats[i].name.toLowerCase() === name.toLowerCase() ||
       stats[i].lookupParam.toLowerCase() == name.toLowerCase()
     ) {
-      if(stats[i].lookupParam)
-        return stats[i].lookupParam;
-      else
-        return stats[i].label
+      if (stats[i].lookupParam) return stats[i].lookupParam;
+      else return stats[i].label;
     }
   }
 
@@ -93,7 +91,6 @@ function findTooltip(name: string) {
 
   return "UNKNOWN";
 }
-
 </script>
 
 <template>
@@ -103,10 +100,15 @@ function findTooltip(name: string) {
         <v-table>
           <thead>
             <tr>
+              <th class="text-center">
+                <v-btn variant="plain">Career</v-btn>
+              </th>
               <th class="text-center" v-for="key in Object.keys(details.stats)">
                 <v-tooltip :text="findTooltip(key)" location="top">
                   <template v-slot:activator="{ props }">
-                    <v-btn variant="plain" v-bind="props">{{ findLookupParam(key) }}</v-btn>
+                    <v-btn variant="plain" v-bind="props">{{
+                      findLookupParam(key)
+                    }}</v-btn>
                   </template>
                 </v-tooltip>
               </th>
@@ -115,6 +117,7 @@ function findTooltip(name: string) {
 
           <tbody>
             <tr>
+              <td></td>
               <td v-for="value in Object.values(details.stats)">{{ value }}</td>
             </tr>
           </tbody>

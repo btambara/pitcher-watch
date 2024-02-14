@@ -41,7 +41,9 @@ const tab = defineModel();
               </v-window-item>
 
               <v-window-item :key="1">
-                <SeasonTable :stats="pitchers[0].yearByYear" />
+                <v-virtual-scroll height="400" :items="pitchers">
+                  <SeasonTable :details="pitchers[0].yearByYear" />
+                </v-virtual-scroll>
               </v-window-item>
 
               <v-window-item :key="2">

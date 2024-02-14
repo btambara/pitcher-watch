@@ -2,7 +2,11 @@
   { "name": "airOuts", "lookupParam": "ao", "label": "Airouts" },
   { "name": "balk", "lookupParam": "bk", "label": "Balk" },
   { "name": "balks", "lookupParam": "bk", "label": "Balk" },
-  { "name": "battingAverage", "lookupParam": "avg", "label": "Batting Average" },
+  {
+    "name": "battingAverage",
+    "lookupParam": "avg",
+    "label": "Batting Average"
+  },
   { "name": "avg", "lookupParam": "avg", "label": "Batting Average" },
   { "name": "babip", "lookupParam": "babip", "label": "" },
   { "name": "qualityStarts", "lookupParam": "qs", "label": "" },
@@ -14,15 +18,27 @@
   { "name": "doubles", "lookupParam": "d", "label": "2B" },
   { "name": "earnedRun", "lookupParam": "er", "label": "" },
   { "name": "earnedRuns", "lookupParam": "er", "label": "Earned Runs" },
-  { "name": "earnedRunAverage", "lookupParam": "era", "label": "Earned Run Average" },
+  {
+    "name": "earnedRunAverage",
+    "lookupParam": "era",
+    "label": "Earned Run Average"
+  },
   { "name": "era", "lookupParam": "era", "label": "Earned Run Average" },
   { "name": "exitVelocity", "lookupParam": "exitVelo", "label": "" },
   { "name": "gamesFinished", "lookupParam": "gf", "label": "Games Finished" },
   { "name": "gamesPlayed", "lookupParam": "g", "label": " Games played" },
   { "name": "gamesPitched", "lookupParam": "g", "label": " Games played" },
   { "name": "gamesStarted", "lookupParam": "gs", "label": "Games started" },
-  { "name": "groundIntoDoublePlays", "lookupParam": "gidp", "label": "Ground Into Double Play" },
-  { "name": "groundIntoDoublePlay", "lookupParam": "gidp", "label": "Ground Into Double Play" },
+  {
+    "name": "groundIntoDoublePlays",
+    "lookupParam": "gidp",
+    "label": "Ground Into Double Play"
+  },
+  {
+    "name": "groundIntoDoublePlay",
+    "lookupParam": "gidp",
+    "label": "Ground Into Double Play"
+  },
   {
     "name": "groundIntoDoublePlayOpportunities",
     "lookupParam": "gidp_opp",
@@ -45,7 +61,11 @@
   { "name": "hitBatsman", "lookupParam": "hbp", "label": "Hit by pitch" },
   { "name": "hitBatsmen", "lookupParam": "hbp", "label": "Hit by pitch" },
   { "name": "hitByPitch", "lookupParam": "hbp", "label": "Hit by pitch" },
-  { "name": "hitsPer9Inn", "lookupParam": "h_9", "label": "Hits Per Nine Innings" },
+  {
+    "name": "hitsPer9Inn",
+    "lookupParam": "h_9",
+    "label": "Hits Per Nine Innings"
+  },
   { "name": "holds", "lookupParam": "hld", "label": "Hold" },
   { "name": "homeRuns", "lookupParam": "hr", "label": "Home Runs" },
   { "name": "homeRunsPerPlateAppearance", "lookupParam": "", "label": "" },
@@ -59,29 +79,65 @@
     "lookupParam": "ir",
     "label": "Inherited Runners"
   },
-  { "name": "inheritedRunnerScored", "lookupParam": "irs", "label": "Inherited Runner Scored" },
-  { "name": "inheritedRunnersScored", "lookupParam": "irs", "label": "Inherited Runner Scored" },
+  {
+    "name": "inheritedRunnerScored",
+    "lookupParam": "irs",
+    "label": "Inherited Runner Scored"
+  },
+  {
+    "name": "inheritedRunnersScored",
+    "lookupParam": "irs",
+    "label": "Inherited Runner Scored"
+  },
   { "name": "outsPitched", "lookupParam": "p_out", "label": "Outs Pitched" },
   { "name": "inningsPitched", "lookupParam": "ip", "label": "Innings Pitched" },
-  { "name": "intentionalWalks", "lookupParam": "ibb", "label": "Intentional Walks" },
+  {
+    "name": "intentionalWalks",
+    "lookupParam": "ibb",
+    "label": "Intentional Walks"
+  },
   { "name": "iso", "lookupParam": "", "label": "" },
   { "name": "losses", "lookupParam": "l", "label": "Losses" },
   { "name": "numberOfStrikes", "lookupParam": "s", "label": "Strikes" },
   { "name": "numberOfBalls", "lookupParam": "b", "label": "Balls" },
   { "name": "numberOfPitches", "lookupParam": "np", "label": "Pitches" },
-  { "name": "onBasePercentage", "lookupParam": "obp", "label": "On Base Percentage" },
+  {
+    "name": "onBasePercentage",
+    "lookupParam": "obp",
+    "label": "On Base Percentage"
+  },
   { "name": "obp", "lookupParam": "obp", "label": "On Base Percentage" },
-  { "name": "onBasePlusSlugging", "lookupParam": "ops", "label": "On Base Plus Slugging" },
+  {
+    "name": "onBasePlusSlugging",
+    "lookupParam": "ops",
+    "label": "On Base Plus Slugging"
+  },
   { "name": "ops", "lookupParam": "ops", "label": "On Base Plus Slugging" },
   { "name": "pickoffs", "lookupParam": "po", "label": "Pickoffs" },
-  { "name": "pitchesPerInning", "lookupParam": "p_ip", "label": "Pitches Per Inning" },
+  {
+    "name": "pitchesPerInning",
+    "lookupParam": "p_ip",
+    "label": "Pitches Per Inning"
+  },
   { "name": "pitchesPerPlateAppearance", "lookupParam": "", "label": "" },
   { "name": "runs", "lookupParam": "r", "label": "Runs" },
   { "name": "saves", "lookupParam": "sv", "label": "Saves" },
-  { "name": "saveOpportunities", "lookupParam": "svo", "label": "Save Opportunities" },
+  {
+    "name": "saveOpportunities",
+    "lookupParam": "svo",
+    "label": "Save Opportunities"
+  },
   { "name": "shutouts", "lookupParam": "sho", "label": "Shutouts" },
-  { "name": "sluggingPercentage", "lookupParam": "slg", "label": "Slugging Percentage" },
-  { "name": "sluggingPercentage", "lookupParam": "slg", "label": "Slugging Percentage" },
+  {
+    "name": "sluggingPercentage",
+    "lookupParam": "slg",
+    "label": "Slugging Percentage"
+  },
+  {
+    "name": "sluggingPercentage",
+    "lookupParam": "slg",
+    "label": "Slugging Percentage"
+  },
   { "name": "slg", "lookupParam": "slg", "label": "Slugging Percentage" },
   { "name": "stolenBases", "lookupParam": "sb", "label": "Stolen Bases" },
   {
@@ -92,9 +148,17 @@
   { "name": "strikes", "lookupParam": "Str", "label": "Strikes" },
   { "name": "Str", "lookupParam": "Str", "label": "Strikes" },
   { "name": "strikeouts", "lookupParam": "so", "label": "Strikeouts" },
-  { "name": "strikeoutsPer9Inn", "lookupParam": "k_9", "label": "Strikeouts Per Nine Innings" },
+  {
+    "name": "strikeoutsPer9Inn",
+    "lookupParam": "k_9",
+    "label": "Strikeouts Per Nine Innings"
+  },
   { "name": "strikeoutsPerPlateAppearance", "lookupParam": "", "label": "" },
-  { "name": "strikeoutWalkRatio", "lookupParam": "k_bb", "label": "Strikeout Walk Ratio" },
+  {
+    "name": "strikeoutWalkRatio",
+    "lookupParam": "k_bb",
+    "label": "Strikeout Walk Ratio"
+  },
   { "name": "totalBases", "lookupParam": "tb", "label": "Total Bases" },
   {
     "name": "totalBattersFaced",
@@ -121,7 +185,11 @@
   },
   { "name": "walks", "lookupParam": "bb", "label": "" },
   { "name": "baseOnBalls", "lookupParam": "bb", "label": "Walks" },
-  { "name": "walksPer9Inn", "lookupParam": "bb_9", "label": "Walks Per Nine Innings" },
+  {
+    "name": "walksPer9Inn",
+    "lookupParam": "bb_9",
+    "label": "Walks Per Nine Innings"
+  },
   { "name": "wildPitch", "lookupParam": "wp", "label": "Wild pitch" },
   { "name": "wildPitches", "lookupParam": "wp", "label": "Wild pitch" },
   { "name": "wins", "lookupParam": "w", "label": "Wins" },
@@ -161,9 +229,25 @@
   { "name": "atBats", "lookupParam": "ab", "label": "At-bat" },
   { "name": "sacFlies", "lookupParam": "sf", "label": "Sacrifice fly" },
   { "name": "sacBunts", "lookupParam": "sh", "label": "Sacrifice bunt" },
-  { "name": "catchersInterference", "lookupParam": "", "label": "Catchers Interference" },
-  { "name": "strikePercentage", "lookupParam": "", "label": "Strike Percentage" },
+  {
+    "name": "catchersInterference",
+    "lookupParam": "",
+    "label": "Catchers Interference"
+  },
+  {
+    "name": "strikePercentage",
+    "lookupParam": "",
+    "label": "Strike Percentage"
+  },
   { "name": "outs", "lookupParam": "", "label": "Outs" },
-  { "name": "homeRunsPer9", "lookupParam": "HR/9", "label": "Home Runs Per Nine Innings" },
-  { "name": "runsScoredPer9", "lookupParam": "RA9", "label": "Runs Allowed Per Nine Innings Pitched" }
+  {
+    "name": "homeRunsPer9",
+    "lookupParam": "HR/9",
+    "label": "Home Runs Per Nine Innings"
+  },
+  {
+    "name": "runsScoredPer9",
+    "lookupParam": "RA9",
+    "label": "Runs Allowed Per Nine Innings Pitched"
+  }
 ]

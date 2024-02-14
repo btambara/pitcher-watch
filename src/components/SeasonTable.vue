@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import pitchStats from "../assets/pitchStats.json";
+
 type PitchingStats = {
   gamesPlayed: number;
   gamesStarted: number;
@@ -62,51 +64,75 @@ type PitchingStats = {
   sacFlies: number;
 };
 
-type yearByYearStats = {
-  type: string;
-  group: string;
-  season: string;
-  stats: PitchingStats;
+type Stats = {
+  details: {
+    type: string;
+    group: string;
+    season: string;
+    stats: PitchingStats;
+  }[];
 };
 
-const details = defineProps<yearByYearStats>();
+const details = defineProps<Stats>();
+
+function findLookupParam(name: string) {
+  for (let i = 0; i < pitchStats.length; i++) {
+    if (
+      pitchStats[i].name.toLowerCase() === name.toLowerCase() ||
+      pitchStats[i].lookupParam.toLowerCase() == name.toLowerCase()
+    ) {
+      if (pitchStats[i].lookupParam) return pitchStats[i].lookupParam;
+      else return pitchStats[i].label;
+    }
+  }
+
+  return "";
+}
+
+function findTooltip(name: string) {
+  for (let i = 0; i < pitchStats.length; i++) {
+    if (pitchStats[i].name.toLowerCase() === name.toLowerCase()) {
+      return pitchStats[i].label;
+    }
+  }
+
+  return "UNKNOWN";
+}
 </script>
 
 <template>
-  <v-virtual-scroll height="400" :items="details">
-    <v-container>
-      <v-row>
-        <v-col>
-          <v-table>
-            <template v-slot:default="{ item }">
-              <thead>
-                <tr>
-                  <th class="text-center">
-                    <v-btn variant="plain">Season</v-btn>
-                  </th>
-                  <th
-                    class="text-center"
-                    v-for="key in Object.keys(item.stats)"
-                  >
-                    <v-btn variant="plain">{{ key }}</v-btn>
-                  </th>
-                </tr>
-              </thead>
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-table>
+          <thead>
+            <tr>
+              <th class="text-center"><v-btn variant="plain">Season</v-btn></th>
+              <th
+                class="text-center"
+                v-for="key in Object.keys(details.details[0].stats)"
+              >
+                <v-tooltip :text="findTooltip(key)" location="top">
+                  <template v-slot:activator="{ props }">
+                    <v-btn variant="plain" v-bind="props">{{
+                      findLookupParam(key)
+                    }}</v-btn>
+                  </template>
+                </v-tooltip>
+              </th>
+            </tr>
+          </thead>
 
-              <tbody>
-                <tr>
-                  <td>{{ item.season }}</td>
-                  <td v-for="value in Object.values(item.stats)">
-                    {{ value }}
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </v-table>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-virtual-scroll>
+          <tbody>
+            <tr v-for="stat in details.details">
+              <td>{{ stat.season }}</td>
+              <td v-for="s in stat.stats">{{ s }}</td>
+            </tr>
+          </tbody>
+        </v-table>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <style scoped>
