@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import stats from "../assets/pitchStats.json";
+import pitchStats from "../assets/pitchStats.json";
 
 type CareerStats = {
   stats: {
@@ -69,13 +69,13 @@ type CareerStats = {
 const details = defineProps<CareerStats>();
 
 function findLookupParam(name: string) {
-  for (let i = 0; i < stats.length; i++) {
+  for (let i = 0; i < pitchStats.length; i++) {
     if (
-      stats[i].name.toLowerCase() === name.toLowerCase() ||
-      stats[i].lookupParam.toLowerCase() == name.toLowerCase()
+      pitchStats[i].name.toLowerCase() === name.toLowerCase() ||
+      pitchStats[i].lookupParam.toLowerCase() == name.toLowerCase()
     ) {
-      if (stats[i].lookupParam) return stats[i].lookupParam;
-      else return stats[i].label;
+      if (pitchStats[i].lookupParam) return pitchStats[i].lookupParam;
+      else return pitchStats[i].label;
     }
   }
 
@@ -83,9 +83,9 @@ function findLookupParam(name: string) {
 }
 
 function findTooltip(name: string) {
-  for (let i = 0; i < stats.length; i++) {
-    if (stats[i].name.toLowerCase() === name.toLowerCase()) {
-      return stats[i].label;
+  for (let i = 0; i < pitchStats.length; i++) {
+    if (pitchStats[i].name.toLowerCase() === name.toLowerCase()) {
+      return pitchStats[i].label;
     }
   }
 
@@ -103,7 +103,11 @@ function findTooltip(name: string) {
               <th class="text-center">
                 <v-btn variant="plain">Career</v-btn>
               </th>
-              <th class="text-center" v-for="key in Object.keys(details.stats)">
+              <th
+                class="text-center"
+                v-for="(key, index) in Object.keys(details.stats)"
+                v-bind:key="index"
+              >
                 <v-tooltip :text="findTooltip(key)" location="top">
                   <template v-slot:activator="{ props }">
                     <v-btn variant="plain" v-bind="props">{{
@@ -118,7 +122,12 @@ function findTooltip(name: string) {
           <tbody>
             <tr>
               <td></td>
-              <td v-for="value in Object.values(details.stats)">{{ value }}</td>
+              <td
+                v-for="(value, index) in Object.values(details.stats)"
+                v-bind:key="index"
+              >
+                {{ value }}
+              </td>
             </tr>
           </tbody>
         </v-table>

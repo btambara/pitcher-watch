@@ -51,7 +51,9 @@ function findTooltip(code: string) {
 
           <tbody>
             <tr>
-              <td v-for="pitch in details.types">{{ pitch.amount }}</td>
+              <td v-for="(pitch, index) in details.types" v-bind:key="index">
+                {{ pitch.amount }}
+              </td>
             </tr>
           </tbody>
         </v-table>

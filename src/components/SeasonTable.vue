@@ -110,7 +110,8 @@ function findTooltip(name: string) {
               <th class="text-center"><v-btn variant="plain">Season</v-btn></th>
               <th
                 class="text-center"
-                v-for="key in Object.keys(details.details[0].stats)"
+                v-for="(key, index) in Object.keys(details.details[0].stats)"
+                v-bind:key="index"
               >
                 <v-tooltip :text="findTooltip(key)" location="top">
                   <template v-slot:activator="{ props }">
@@ -124,9 +125,11 @@ function findTooltip(name: string) {
           </thead>
 
           <tbody>
-            <tr v-for="stat in details.details">
+            <tr v-for="(stat, index) in details.details" v-bind:key="index">
               <td>{{ stat.season }}</td>
-              <td v-for="s in stat.stats">{{ s }}</td>
+              <td v-for="(s, index) in stat.stats" v-bind:key="index">
+                {{ s }}
+              </td>
             </tr>
           </tbody>
         </v-table>
