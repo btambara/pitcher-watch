@@ -1,1 +1,6 @@
 MLB-StatsAPI
+fastapi
+sqlalchemy
+uvicorn
+alembic
+psycopg2-binary
