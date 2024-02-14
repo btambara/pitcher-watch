@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import PlayerDetails from "./PlayerDetails.vue";
-import CareerTable from "./CareerTable.vue";
-import SeasonTable from "./SeasonTable.vue";
+import PlayerStats from "./PlayerStats.vue";
 import PlayerArsenal from "./PlayerArsenal.vue";
 import pitchers from "../assets/pitchers.json";
 import DodgerLogo from "../assets/logos/los-angeles-dodgers-logo.svg";
@@ -28,25 +27,18 @@ const tab = defineModel();
         <v-col>
           <v-card class="ml-4 mr-4 mb-4" rounded="lg">
             <v-tabs v-model="tab" fixed-tabs bg-color="primary">
-              <v-tab>Career</v-tab>
-              <v-tab>Season</v-tab>
+              <v-tab>Stats</v-tab>
               <v-tab>Arsenal</v-tab>
             </v-tabs>
 
             <v-window v-model="tab">
               <v-window-item :key="0">
-                <v-sheet height="400">
-                  <CareerTable :stats="pitchers[0].careerStats" />
-                </v-sheet>
-              </v-window-item>
-
-              <v-window-item :key="1">
                 <v-virtual-scroll height="400" :items="pitchers">
-                  <SeasonTable :details="pitchers[0].yearByYear" />
+                  <PlayerStats />
                 </v-virtual-scroll>
               </v-window-item>
 
-              <v-window-item :key="2">
+              <v-window-item :key="1">
                 <v-virtual-scroll
                   height="400"
                   :items="pitchers[0].pitchingTypes"
