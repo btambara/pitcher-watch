@@ -3,7 +3,7 @@ import PlayerSheet from "./components/PlayerSheet.vue";
 </script>
 
 <template>
-    <PlayerSheet />
+  <PlayerSheet />
 </template>
 
 <style scoped></style>

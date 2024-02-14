@@ -14,9 +14,9 @@ import * as directives from "vuetify/directives";
 
 const vuetify = createVuetify({
   defaults: {
-    data:{
-      tab: "one"
-    }
+    data: {
+      tab: "one",
+    },
   },
   icons: {
     defaultSet: "fa",
