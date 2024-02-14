@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import pitchingTypes from "../assets/pitchingTypes.json";
+import pitchTypes from "../assets/pitchTypes.json";
 
 type Pitches = {
   year: number;
@@ -12,9 +12,9 @@ type Pitches = {
 const details = defineProps<Pitches>();
 
 function findTooltip(code: string) {
-  for (let i = 0; i < pitchingTypes.length; i++) {
-    if (pitchingTypes[i].code === code) {
-      return pitchingTypes[i].description;
+  for (let i = 0; i < pitchTypes.length; i++) {
+    if (pitchTypes[i].code === code) {
+      return pitchTypes[i].description;
     }
   }
 
