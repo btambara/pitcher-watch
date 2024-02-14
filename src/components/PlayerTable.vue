@@ -13,7 +13,7 @@ const details = defineProps<Pitches>();
 
 function findTooltip(code: string) {
   for (let i = 0; i < pitchTypes.length; i++) {
-    if (pitchTypes[i].code === code) {
+    if (pitchTypes[i].code.toLowerCase() === code.toLowerCase()) {
       return pitchTypes[i].description;
     }
   }

@@ -5,7 +5,28 @@ to_year = datetime.now().year
 player = statsapi.lookup_player("Kershaw", season=to_year)[0]
 from_year = datetime.strptime(player["mlbDebutDate"], "%Y-%m-%d").year
 
-print(statsapi.player_stat_data(player["id"], group="pitching", type="career"))
+# print(statsapi.player_stat_data(player["id"], group="pitching", type="career"))
+print("[")
+for stat in statsapi.meta("baseballStats"):
+    pitch_stats = {}
+    if "statGroups" in stat:
+        for group in stat["statGroups"]:
+            if group["displayName"] == "pitching":
+                if "name" in stat:
+                    pitch_stats["name"] = stat["name"]
+                else:
+                    pitch_stats["name"] = ""
+                if "lookupParam" in stat:
+                    pitch_stats["lookupParam"] = stat["lookupParam"]
+                else:
+                    pitch_stats["lookupParam"] = ""
+                if "label" in stat:
+                    pitch_stats["label"] = stat["label"]
+                else:
+                    pitch_stats["label"] = ""
+                
+                print(str(pitch_stats) + ",")
+print("]")
 
 if not player:
     team_id = player["currentTeam"]["id"]

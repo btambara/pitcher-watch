@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import stats from "../assets/pitchStats.json";
+
 type CareerStats = {
   stats: {
     gamesPlayed: number;
@@ -65,6 +67,33 @@ type CareerStats = {
 };
 
 const details = defineProps<CareerStats>();
+
+function findLookupParam(name: string) {
+  for (let i = 0; i < stats.length; i++) {
+    if (
+      stats[i].name.toLowerCase() === name.toLowerCase() ||
+      stats[i].lookupParam.toLowerCase() == name.toLowerCase()
+    ) {
+      if(stats[i].lookupParam)
+        return stats[i].lookupParam;
+      else
+        return stats[i].label
+    }
+  }
+
+  return "";
+}
+
+function findTooltip(name: string) {
+  for (let i = 0; i < stats.length; i++) {
+    if (stats[i].name.toLowerCase() === name.toLowerCase()) {
+      return stats[i].label;
+    }
+  }
+
+  return "UNKNOWN";
+}
+
 </script>
 
 <template>
@@ -75,7 +104,11 @@ const details = defineProps<CareerStats>();
           <thead>
             <tr>
               <th class="text-center" v-for="key in Object.keys(details.stats)">
-                <v-btn variant="plain">{{ key }}</v-btn>
+                <v-tooltip :text="findTooltip(key)" location="top">
+                  <template v-slot:activator="{ props }">
+                    <v-btn variant="plain" v-bind="props">{{ findLookupParam(key) }}</v-btn>
+                  </template>
+                </v-tooltip>
               </th>
             </tr>
           </thead>
