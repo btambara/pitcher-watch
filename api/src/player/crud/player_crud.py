@@ -3,12 +3,21 @@ from sqlalchemy.orm import Session
 from player.models.player import Player
 from player.schemas.player_schemas import PlayerCreate, PlayerUpdate
 
+import statsapi
 
 def get_player(db: Session, id: int):
     return db.query(Player).filter(Player.id == id).first()
 
 def get_all_players(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Player).offset(skip).limit(limit).all()
+    all_players = db.query(Player).offset(skip).limit(limit).all()
+    if len(all_players) == 0:
+        for player_data in statsapi.get("sports_players", { "sportId": 1, "season":  2024})["people"]:
+            primary_number = player_data["primaryNumber"] if "primaryNumber" in player_data else -1
+            player_create = PlayerCreate(mlb_id=player_data["id"], full_name=player_data["fullName"], primary_number=primary_number)
+            create_player(db, player_create)
+        all_players = db.query(Player).offset(skip).limit(limit).all()
+    
+    return all_players
 
 def get_player_by_mlb_id(db: Session, mlb_id: int):
     return db.query(Player).filter(Player.mlb_id == mlb_id).first()
