@@ -1,79 +1,77 @@
 <script setup lang="ts">
 import pitchStats from "../assets/pitchStats.json";
 
-type PitchingStats = {
-  gamesPlayed: number;
-  gamesStarted: number;
-  groundOuts: number;
-  airOuts: number;
-  runs: number;
-  doubles: number;
-  triples: number;
-  homeRuns: number;
-  strikeOuts: number;
-  baseOnBalls: number;
-  intentionalWalks: number;
-  hits: number;
-  hitByPitch: number;
-  avg: number;
-  atBats: number;
-  obp: number;
-  slg: number;
-  ops: number;
-  caughtStealing: number;
-  stolenBases: number;
-  stolenBasePercentage: number;
-  groundIntoDoublePlay: number;
-  numberOfPitches: number;
-  era: number;
-  inningsPitched: number;
-  wins: number;
-  losses: number;
-  saves: number;
-  saveOpportunities: number;
-  holds: number;
-  blownSaves: number;
-  earnedRuns: number;
-  whip: 1.0;
-  battersFaced: number;
-  outs: number;
-  gamesPitched: number;
-  completeGames: number;
-  shutouts: number;
-  strikes: number;
-  strikePercentage: number;
-  hitBatsmen: number;
-  balks: number;
-  wildPitches: number;
-  pickoffs: number;
-  totalBases: number;
-  groundOutsToAirouts: number;
-  winPercentage: number;
-  pitchesPerInning: number;
-  gamesFinished: number;
-  strikeoutWalkRatio: number;
-  strikeoutsPer9Inn: number;
-  walksPer9Inn: number;
-  hitsPer9Inn: number;
-  runsScoredPer9: number;
-  homeRunsPer9: number;
-  inheritedRunners: number;
-  inheritedRunnersScored: number;
-  catchersInterference: number;
-  sacBunts: number;
-  sacFlies: number;
+type SeasonStats = {
+    info: {
+      type: string;
+      group: string;
+      season: string;
+      stats: {
+        gamesPlayed: number;
+        gamesStarted: number;
+        groundOuts: number;
+        airOuts: number;
+        runs: number;
+        doubles: number;
+        triples: number;
+        homeRuns: number;
+        strikeOuts: number;
+        baseOnBalls: number;
+        intentionalWalks: number;
+        hits: number;
+        hitByPitch: number;
+        avg: string;
+        atBats: number;
+        obp: string;
+        slg: string;
+        ops: string;
+        caughtStealing: number;
+        stolenBases: number;
+        stolenBasePercentage: string;
+        groundIntoDoublePlay: number;
+        numberOfPitches: number;
+        era: string;
+        inningsPitched: string;
+        wins: number;
+        losses: number;
+        saves: number;
+        saveOpportunities: number;
+        holds: number;
+        blownSaves: number;
+        earnedRuns: number;
+        whip: string;
+        battersFaced: number;
+        outs: number;
+        gamesPitched: number;
+        completeGames: number;
+        shutouts: number;
+        strikes: number;
+        strikePercentage: string;
+        hitBatsmen: number;
+        balks: number;
+        wildPitches: number;
+        pickoffs: number;
+        totalBases: number;
+        groundOutsToAirouts: string;
+        winPercentage: string;
+        pitchesPerInning: string;
+        gamesFinished: number;
+        strikeoutWalkRatio: string;
+        strikeoutsPer9Inn: string;
+        walksPer9Inn: string;
+        hitsPer9Inn: string;
+        runsScoredPer9: string;
+        homeRunsPer9: string;
+        inheritedRunners: number;
+        inheritedRunnersScored: number;
+        catchersInterference: number;
+        sacBunts: number;
+        sacFlies: number;
+      }
+    }[];
 };
 
-type Stats = {
-  details: {
-    type: string;
-    group: string;
-    season: string;
-    stats: PitchingStats;
-  }[];
-};
-
-const details = defineProps<Stats>();
+const details = defineProps<SeasonStats>();
 
 function findLookupParam(name: string) {
   for (let i = 0; i < pitchStats.length; i++) {
@@ -110,7 +108,7 @@ function findTooltip(name: string) {
               <th class="text-center"><v-btn variant="plain">Season</v-btn></th>
               <th
                 class="text-center"
-                v-for="(key, index) in Object.keys(details.details[0].stats)"
+                v-for="(key, index) in Object.keys(details.info[0].stats)"
                 v-bind:key="index"
               >
                 <v-tooltip :text="findTooltip(key)" location="top">
@@ -125,10 +123,10 @@ function findTooltip(name: string) {
           </thead>
 
           <tbody>
-            <tr v-for="(stat, index) in details.details" v-bind:key="index">
+            <tr v-for="(stat, index) in details.info" v-bind:key="index">
               <td>{{ stat.season }}</td>
-              <td v-for="(s, index) in stat.stats" v-bind:key="index">
-                {{ s }}
+              <td v-for="value in Object.values(stat.stats)">
+                {{ value }}
               </td>
             </tr>
           </tbody>

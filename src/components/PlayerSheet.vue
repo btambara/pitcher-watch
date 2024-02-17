@@ -15,9 +15,9 @@ const tab = defineModel();
         <v-col>
           <PlayerDetails
             class="ma-4"
-            full-name="Clayton Kershaw"
-            primary-number="22"
-            primary-position="P"
+            :full-name="pitchers[0].fullName"
+            :primary-number="pitchers[0].primaryNumber"
+            :primary-position="pitchers[0].primaryPosition"
             :logo="DodgerLogo"
           />
         </v-col>

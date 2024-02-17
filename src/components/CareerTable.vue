@@ -2,68 +2,66 @@
 import pitchStats from "../assets/pitchStats.json";
 
 type CareerStats = {
-  stats: {
-    gamesPlayed: number;
-    gamesStarted: number;
-    groundOuts: number;
-    airOuts: number;
-    runs: number;
-    doubles: number;
-    triples: number;
-    homeRuns: number;
-    strikeOuts: number;
-    baseOnBalls: number;
-    intentionalWalks: number;
-    hits: number;
-    hitByPitch: number;
-    avg: number;
-    atBats: number;
-    obp: number;
-    slg: number;
-    ops: number;
-    caughtStealing: number;
-    stolenBases: number;
-    stolenBasePercentage: number;
-    groundIntoDoublePlay: number;
-    numberOfPitches: number;
-    era: number;
-    inningsPitched: number;
-    wins: number;
-    losses: number;
-    saves: number;
-    saveOpportunities: number;
-    holds: number;
-    blownSaves: number;
-    earnedRuns: number;
-    whip: 1.0;
-    battersFaced: number;
-    outs: number;
-    gamesPitched: number;
-    completeGames: number;
-    shutouts: number;
-    strikes: number;
-    strikePercentage: number;
-    hitBatsmen: number;
-    balks: number;
-    wildPitches: number;
-    pickoffs: number;
-    totalBases: number;
-    groundOutsToAirouts: number;
-    winPercentage: number;
-    pitchesPerInning: number;
-    gamesFinished: number;
-    strikeoutWalkRatio: number;
-    strikeoutsPer9Inn: number;
-    walksPer9Inn: number;
-    hitsPer9Inn: number;
-    runsScoredPer9: number;
-    homeRunsPer9: number;
-    inheritedRunners: number;
-    inheritedRunnersScored: number;
-    catchersInterference: number;
-    sacBunts: number;
-    sacFlies: number;
-  };
+  gamesPlayed: number;
+  gamesStarted: number;
+  groundOuts: number;
+  airOuts: number;
+  runs: number;
+  doubles: number;
+  triples: number;
+  homeRuns: number;
+  strikeOuts: number;
+  baseOnBalls: number;
+  intentionalWalks: number;
+  hits: number;
+  hitByPitch: number;
+  avg: string;
+  atBats: number;
+  obp: string;
+  slg: string;
+  ops: string;
+  caughtStealing: number;
+  stolenBases: number;
+  stolenBasePercentage: string;
+  groundIntoDoublePlay: number;
+  numberOfPitches: number;
+  era: string;
+  inningsPitched: string;
+  wins: number;
+  losses: number;
+  saves: number;
+  saveOpportunities: number;
+  holds: number;
+  blownSaves: number;
+  earnedRuns: number;
+  whip: string;
+  battersFaced: number;
+  outs: number;
+  gamesPitched: number;
+  completeGames: number;
+  shutouts: number;
+  strikes: number;
+  strikePercentage: string;
+  hitBatsmen: number;
+  balks: number;
+  wildPitches: number;
+  pickoffs: number;
+  totalBases: number;
+  groundOutsToAirouts: string;
+  winPercentage: string;
+  pitchesPerInning: string;
+  gamesFinished: number;
+  strikeoutWalkRatio: string;
+  strikeoutsPer9Inn: string;
+  walksPer9Inn: string;
+  hitsPer9Inn: string;
+  runsScoredPer9: string;
+  homeRunsPer9: string;
+  inheritedRunners: number;
+  inheritedRunnersScored: number;
+  catchersInterference: number;
+  sacBunts: number;
+  sacFlies: number;
 };
 
 const details = defineProps<CareerStats>();
@@ -105,7 +103,7 @@ function findTooltip(name: string) {
               </th>
               <th
                 class="text-center"
-                v-for="(key, index) in Object.keys(details.stats)"
+                v-for="(key, index) in Object.keys(details)"
                 v-bind:key="index"
               >
                 <v-tooltip :text="findTooltip(key)" location="top">
@@ -123,7 +121,7 @@ function findTooltip(name: string) {
             <tr>
               <td></td>
               <td
-                v-for="(value, index) in Object.values(details.stats)"
+                v-for="(value, index) in Object.values(details)"
                 v-bind:key="index"
               >
                 {{ value }}
