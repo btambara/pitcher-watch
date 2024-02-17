@@ -12,3 +12,5 @@ class Player(Base):
     mlb_id = Column(Integer)
     full_name = Column(String)
     primary_number = Column(Integer)
+    current_team_id = Column(Integer)
+    primary_position_code = Column(String)

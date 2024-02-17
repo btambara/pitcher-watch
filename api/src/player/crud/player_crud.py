@@ -13,7 +13,13 @@ def get_all_players(db: Session, skip: int = 0, limit: int = 100):
     if len(all_players) == 0:
         for player_data in statsapi.get("sports_players", { "sportId": 1, "season":  2024})["people"]:
             primary_number = player_data["primaryNumber"] if "primaryNumber" in player_data else -1
-            player_create = PlayerCreate(mlb_id=player_data["id"], full_name=player_data["fullName"], primary_number=primary_number)
+            player_create = PlayerCreate(
+                                mlb_id=player_data["id"],
+                                full_name=player_data["fullName"],
+                                primary_number=primary_number,
+                                primary_position_code=player_data["primaryPosition"]["code"],
+                                current_team_id=player_data["currentTeam"]["id"]
+                            )
             create_player(db, player_create)
         all_players = db.query(Player).offset(skip).limit(limit).all()
     
@@ -33,6 +39,8 @@ def create_player(db: Session, player: PlayerCreate):
         mlb_id=player.mlb_id,
         full_name=player.full_name,
         primary_number=player.primary_number,
+        current_team_id=player.current_team_id,
+        primary_position_code=player.primary_position_code
     )
     
     db.add(db_player)
