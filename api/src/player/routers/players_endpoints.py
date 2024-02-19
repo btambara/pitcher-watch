@@ -121,10 +121,11 @@ def delete_player(
 def read_all_players(
     *,
     db: Session = Depends(get_db),
+    position: str | None = None,
     skip: int = 0,
     limit: int | None = None
 ) -> List[Player]:
     """
     Get all players.
     """
-    return player_crud.get_all_players(db=db, skip=skip, limit=limit)
+    return player_crud.get_all_players(db=db, position=position, skip=skip, limit=limit)

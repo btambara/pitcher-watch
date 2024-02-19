@@ -8,7 +8,7 @@ import statsapi
 def get_player(db: Session, id: int):
     return db.query(Player).filter(Player.id == id).first()
 
-def get_all_players(db: Session, skip: int = 0, limit: int = 100):
+def get_all_players(db: Session, position: str | None = None, skip: int = 0, limit: int = 100):
     all_players = db.query(Player).offset(skip).limit(limit).all()
     if len(all_players) == 0:
         for player_data in statsapi.get("sports_players", { "sportId": 1, "season":  2024})["people"]:
@@ -23,7 +23,10 @@ def get_all_players(db: Session, skip: int = 0, limit: int = 100):
             create_player(db, player_create)
         all_players = db.query(Player).offset(skip).limit(limit).all()
     
-    return all_players
+    if not position:
+        return all_players
+    else:
+        return db.query(Player).filter(Player.primary_position_code == position).offset(skip).limit(limit).all()
 
 def get_player_by_mlb_id(db: Session, mlb_id: int):
     return db.query(Player).filter(Player.mlb_id == mlb_id).first()
