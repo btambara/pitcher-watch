@@ -16,7 +16,6 @@ services:
     - "8393:8393"
     volumes:
       - ./api:/api
-      - ./alembic.ini:/api/alembic.ini
 
   web:
     build:
