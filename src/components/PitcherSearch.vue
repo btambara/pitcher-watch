@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import PlayerSheet from "./PlayerSheet.vue";
+import pitchersJSON from "../assets/pitchers.json"
 import { ref } from "vue";
 const pitchers = defineModel();
 const pitcherDialog = ref(false);
@@ -18,9 +19,19 @@ fetch("http://localhost/api/v1/players/?position=1&skip=0").then(
         value: player,
       });
     }
+
     pitchers.value = itemPlayers;
   },
-);
+).catch(() => {
+  let itemPlayers: any = [];
+  for (var player of pitchersJSON) {
+    itemPlayers.push({
+      title: player["full_name"] + " | " + player["primary_number"],
+      value: player,
+    });
+  }
+  pitchers.value = itemPlayers
+});
 
 function handler(pitcher: any) {
   if (pitcher) {
