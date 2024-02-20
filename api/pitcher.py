@@ -4,9 +4,10 @@ from datetime import datetime
 to_year = datetime.now().year
 player = statsapi.lookup_player("Kershaw", season=to_year)[0]
 from_year = datetime.strptime(player["mlbDebutDate"], "%Y-%m-%d").year
-for person in statsapi.get("sports_players", {"sportId": 1, "season": 2024})["people"]:
-    print(person)
-    print(person["currentTeam"]["id"])
+# for person in statsapi.get("sports_players", {"sportId": 1, "season": 2024})["people"]:
+#     print(person)
+#     print(person["currentTeam"]["id"])
+print(statsapi.meta("positions"))
 # print(statsapi.get("sports_players", {"sportId": 1, "season": 2024})["people"][0])
 # print(statsapi.player_stat_data(player["id"], group="pitching", type="career"))
 # print("[")

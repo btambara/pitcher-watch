@@ -3,9 +3,27 @@ import PlayerDetails from "./PlayerDetails.vue";
 import PlayerStats from "./PlayerStats.vue";
 import PlayerArsenal from "./PlayerArsenal.vue";
 import pitchers from "../assets/pitchers.json";
+import positions from "../assets/positions.json";
 import DodgerLogo from "../assets/logos/los-angeles-dodgers-logo.svg";
 
+type Pitcher = {
+  fullName: string;
+  primaryNumber: string;
+  primaryPosition: string;
+};
+
 const tab = defineModel();
+const pitcher = defineProps<Pitcher>();
+
+function findAbbrev(code: string) {
+  for (var position of positions) {
+    if (position["code"] == code) {
+      return position["abbrev"];
+    }
+  }
+
+  return "UNKNOWN";
+}
 </script>
 
 <template>
@@ -15,9 +33,9 @@ const tab = defineModel();
         <v-col>
           <PlayerDetails
             class="ma-4"
-            :full-name="pitchers[0].fullName"
-            :primary-number="pitchers[0].primaryNumber"
-            :primary-position="pitchers[0].primaryPosition"
+            :full-name="pitcher.fullName"
+            :primary-number="pitcher.primaryNumber"
+            :primary-position="findAbbrev(pitcher.primaryPosition)"
             :logo="DodgerLogo"
           />
         </v-col>

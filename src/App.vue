@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import PlayerSheet from "./components/PlayerSheet.vue";
-const pitchers = defineModel();
-
-fetch("http://localhost/api/v1/players/?position=1&skip=0").then(async response => {
-  const isJson = response.headers.get('content-type')?.includes('application/json');
-  const data = isJson && await response.json();
-  pitchers.value = data
-})
+import PitcherSearch from "./components/PitcherSearch.vue";
 </script>
 
 <template>
-  <PlayerSheet />
+  <div class="h-75 d-flex align-center justify-center flex-column">
+    <div class="text-h3">Search</div>
+    <PitcherSearch />
+  </div>
 </template>
 
 <style scoped></style>
