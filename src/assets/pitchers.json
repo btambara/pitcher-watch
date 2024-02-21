@@ -3,7 +3,7 @@
     "full_name": "Clayton Kershaw",
     "primary_number": "22",
     "primary_position_code": "1",
-    "logo": "assets/logos/los-angeles-dodgers-logo.svg",
+    "current_team_id": "119",
     "careerStats": {
       "gamesPlayed": 425,
       "gamesStarted": 422,

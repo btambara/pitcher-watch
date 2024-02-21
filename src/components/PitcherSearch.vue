@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import PlayerSheet from "./PlayerSheet.vue";
-import pitchersJSON from "../assets/pitchers.json"
+import pitchersJSON from "../assets/pitchers.json";
 import { ref } from "vue";
 const pitchers = defineModel();
 const pitcherDialog = ref(false);
 const selectedPitcher = ref();
 
-fetch("http://localhost/api/v1/players/?position=1&skip=0").then(
-  async (response) => {
+fetch("http://localhost/api/v1/players/?position=1&skip=0")
+  .then(async (response) => {
     const isJson = response.headers
       .get("content-type")
       ?.includes("application/json");
@@ -21,17 +21,17 @@ fetch("http://localhost/api/v1/players/?position=1&skip=0").then(
     }
 
     pitchers.value = itemPlayers;
-  },
-).catch(() => {
-  let itemPlayers: any = [];
-  for (var player of pitchersJSON) {
-    itemPlayers.push({
-      title: player["full_name"] + " | " + player["primary_number"],
-      value: player,
-    });
-  }
-  pitchers.value = itemPlayers
-});
+  })
+  .catch(() => {
+    let itemPlayers: any = [];
+    for (var player of pitchersJSON) {
+      itemPlayers.push({
+        title: player["full_name"] + " | " + player["primary_number"],
+        value: player,
+      });
+    }
+    pitchers.value = itemPlayers;
+  });
 
 function handler(pitcher: any) {
   if (pitcher) {
@@ -76,6 +76,7 @@ function handler(pitcher: any) {
         ></v-btn>
         <PlayerSheet
           :full-name="selectedPitcher['full_name']"
+          :current-team-id="selectedPitcher['current_team_id']"
           :primary-number="selectedPitcher['primary_number']"
           :primary-position="selectedPitcher['primary_position_code']"
         />

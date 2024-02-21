@@ -14,7 +14,7 @@ const details = defineProps<Player>();
     <v-row align="center" justify="center">
       <v-col cols="12" align="center" justify="center">
         <v-avatar color="white" size="70">
-          <img :src="logo" height="90%" />
+          <img :src="logo" height="60%" />
         </v-avatar>
       </v-col>
       <v-col>
