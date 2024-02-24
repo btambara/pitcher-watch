@@ -41,6 +41,7 @@ type Pitcher = {
   primaryNumber: string;
   primaryPosition: string;
   currentTeamId: string;
+  mlbId: number;
 };
 
 const tab = defineModel();
@@ -150,7 +151,7 @@ function findLogo(currentTeamId: number) {
             <v-window v-model="tab">
               <v-window-item :key="0">
                 <v-virtual-scroll height="400" :items="pitchers">
-                  <PlayerStats />
+                  <PlayerStats :mlb-id="pitcher.mlbId" />
                 </v-virtual-scroll>
               </v-window-item>
 

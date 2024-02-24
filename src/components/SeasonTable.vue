@@ -3,8 +3,7 @@ import pitchStats from "../assets/pitchStats.json";
 
 type SeasonStats = {
   info: {
-    type: string;
-    group: string;
+    team_id: string;
     season: string;
     stats: {
       gamesPlayed: number;
@@ -108,6 +107,7 @@ function findTooltip(name: string) {
               <th class="text-center"><v-btn variant="plain">Season</v-btn></th>
               <th
                 class="text-center"
+                v-if="details && details.info && details.info[0].stats"
                 v-for="(key, index) in Object.keys(details.info[0].stats)"
                 v-bind:key="index"
               >
@@ -123,7 +123,11 @@ function findTooltip(name: string) {
           </thead>
 
           <tbody>
-            <tr v-for="(stat, index) in details.info" v-bind:key="index">
+            <tr
+              v-if="details && details.info"
+              v-for="(stat, index) in details.info"
+              v-bind:key="index"
+            >
               <td>{{ stat.season }}</td>
               <td v-for="value in Object.values(stat.stats)">
                 {{ value }}

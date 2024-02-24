@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 
+from src.player.schemas.stats_schemas import Stats
+
 class PlayerBase(BaseModel):
     mlb_id: int
     full_name: str
@@ -18,6 +20,7 @@ class PlayerUpdate(PlayerBase):
 
 class Player(PlayerBase):
     id: int
-
+    stats: list[Stats] = []
+    
     class Config:
         orm_mode = True

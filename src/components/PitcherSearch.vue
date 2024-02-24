@@ -6,7 +6,7 @@ const pitchers = defineModel();
 const pitcherDialog = ref(false);
 const selectedPitcher = ref();
 
-fetch("http://localhost/api/v1/players/?position=1&skip=0")
+fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
   .then(async (response) => {
     const isJson = response.headers
       .get("content-type")
@@ -79,6 +79,7 @@ function handler(pitcher: any) {
           :current-team-id="selectedPitcher['current_team_id']"
           :primary-number="selectedPitcher['primary_number']"
           :primary-position="selectedPitcher['primary_position_code']"
+          :mlb-id="selectedPitcher['mlb_id']"
         />
       </v-card>
     </v-dialog>
