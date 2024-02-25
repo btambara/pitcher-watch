@@ -5,6 +5,7 @@ import { ref } from "vue";
 const pitchers = defineModel();
 const pitcherDialog = ref(false);
 const selectedPitcher = ref();
+const ready = ref(false);
 
 fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
   .then(async (response) => {
@@ -21,6 +22,7 @@ fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
     }
 
     pitchers.value = itemPlayers;
+    ready.value = true;
   })
   .catch(() => {
     let itemPlayers: any = [];
@@ -31,6 +33,7 @@ fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
       });
     }
     pitchers.value = itemPlayers;
+    ready.value = true;
   });
 
 function handler(pitcher: any) {
@@ -43,9 +46,12 @@ function handler(pitcher: any) {
 
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row justify="center" align-center>
       <v-col cols="12" sm="7" md="5" lg="5" xl="5">
+        <v-progress-linear indeterminate v-show="!ready"></v-progress-linear>
+        <div class="text-h3 mb-4" v-show="ready">Search</div>
         <v-autocomplete
+          v-show="ready"
           :items="pitchers"
           append-inner-icon="fas fa-magnifying-glass"
           auto-select-first

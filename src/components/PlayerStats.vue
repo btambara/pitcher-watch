@@ -19,7 +19,7 @@ watchEffect(async () => {
   ).then(async (response) => {
     stats.value = await response.json();
     if (stats.value) {
-      let seasonStats = []
+      let seasonStats = [];
       for (var stat of stats.value) {
         if (stat["season"] == -1 && stat["team_id"] == -1) {
           career.value = stat;
@@ -27,7 +27,7 @@ watchEffect(async () => {
           seasonStats.push(stat);
         }
       }
-      season.value = seasonStats
+      season.value = seasonStats;
     }
   });
 });
