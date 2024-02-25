@@ -12,13 +12,15 @@ def get_player_stats(db: Session, mlb_id: int | None = None, skip: int = 0, limi
     player_stats = db.query(Stats).filter(Stats.mlb_id == mlb_id).offset(skip).limit(limit).all()
 
     if len(player_stats) == 0:
-        career_stats = statsapi.player_stat_data(mlb_id, group="pitching", type="career")["stats"][0]
-        stats_create = StatsCreate(
-            season=-1,
-            team_id=-1,
-            stats=career_stats["stats"]
-        )
-        create_stats(db, stats_create, mlb_id)
+        player_data = statsapi.player_stat_data(mlb_id, group="pitching", type="career")["stats"]
+        if player_data:
+            career_stats = player_data[0]
+            stats_create = StatsCreate(
+                season=-1,
+                team_id=-1,
+                stats=career_stats["stats"]
+            )
+            create_stats(db, stats_create, mlb_id)
 
         year_by_year_stats = statsapi.player_stat_data(mlb_id, group="pitching", type="yearByYear")
         for season_stats in year_by_year_stats["stats"]:
@@ -29,7 +31,7 @@ def get_player_stats(db: Session, mlb_id: int | None = None, skip: int = 0, limi
             )
             create_stats(db, stats_create, mlb_id)
         
-        player_stats = db.query(Stats).filter(Stats.mlb_id == mlb_id).offset(skip).limit(limit).all().sort(key="season", reverse=True)
+        player_stats = db.query(Stats).filter(Stats.mlb_id == mlb_id).offset(skip).limit(limit).all()
 
     return player_stats
 
