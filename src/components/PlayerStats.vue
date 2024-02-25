@@ -9,6 +9,7 @@ import { watchEffect, ref } from "vue";
 const stats = ref();
 const career = ref(CareerStats);
 const season = ref();
+const ready = ref(false);
 const pitcher = defineProps({
   mlbId: Number,
 });
@@ -28,6 +29,7 @@ watchEffect(async () => {
         }
       }
       season.value = seasonStats;
+      ready.value = true;
     }
   });
 });
@@ -38,12 +40,14 @@ watchEffect(async () => {
     <v-container>
       <v-row>
         <v-col>
-          <CareerTable :stats="career['stats']" />
+          <v-skeleton-loader type="table-thead" v-show="!ready"></v-skeleton-loader>
+          <v-skeleton-loader type="table-tbody" v-show="!ready"></v-skeleton-loader>
+          <CareerTable :stats="career['stats']" v-show="ready" />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <SeasonTable :info="season" />
+          <SeasonTable :info="season" v-show="ready" />
         </v-col>
       </v-row>
     </v-container>
