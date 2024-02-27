@@ -17,6 +17,7 @@ class Player(Base):
     current_team_id = Column(Integer)
     primary_position_code = Column(String)
     stats = relationship("Stats", back_populates="player")
+    pitches = relationship("Pitches", back_populates="player")
 
 class Stats(Base):
     __tablename__ = "stats"
@@ -27,3 +28,13 @@ class Stats(Base):
     season = Column(Integer)
     team_id = Column(Integer)
     stats = Column(JSONB)
+
+class Pitches(Base):
+    __tablename__ = "pitches"
+    
+    id = Column(Integer, primary_key=True)
+    mlb_id = Column(Integer, ForeignKey("players.mlb_id"))
+    player = relationship("Player", back_populates="pitches")
+    season = Column(Integer)
+    team_id = Column(Integer)
+    pitches = Column(JSONB)

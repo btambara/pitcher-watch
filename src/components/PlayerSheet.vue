@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import PlayerDetails from "./PlayerDetails.vue";
 import PlayerStats from "./PlayerStats.vue";
-import PlayerArsenal from "./PlayerArsenal.vue";
-import pitchers from "../assets/pitchers.json";
+import PlayerPitches from "./PlayerPitches.vue";
 import positions from "../assets/positions.json";
 
 import AthleticsLogo from "../assets/logos/oakland-athletics-logo.svg";
@@ -145,24 +144,19 @@ function findLogo(currentTeamId: number) {
           <v-card class="ml-4 mr-4 mb-4" rounded="lg">
             <v-tabs v-model="tab" fixed-tabs bg-color="primary">
               <v-tab>Stats</v-tab>
-              <v-tab>Arsenal</v-tab>
+              <v-tab>Pitches</v-tab>
             </v-tabs>
 
             <v-window v-model="tab">
               <v-window-item :key="0">
-                <v-virtual-scroll height="400" :items="pitchers">
+                <v-virtual-scroll height="400" :items="[pitcher]">
                   <PlayerStats :mlb-id="pitcher.mlbId" />
                 </v-virtual-scroll>
               </v-window-item>
 
               <v-window-item :key="1">
-                <v-virtual-scroll
-                  height="400"
-                  :items="pitchers[0].pitchingTypes"
-                >
-                  <template v-slot:default="{ item }">
-                    <PlayerArsenal :year="item.year" :types="item.types" />
-                  </template>
+                <v-virtual-scroll height="400" :items="[pitcher]">
+                  <PlayerPitches :mlb-id="pitcher.mlbId" />
                 </v-virtual-scroll>
               </v-window-item>
             </v-window>

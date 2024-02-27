@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import CareerTable from "./CareerTable.vue";
 import CareerStats from "./CareerTable.vue";
-// import SeasonStats from "./SeasonTable.vue";
 import SeasonTable from "./SeasonTable.vue";
 import pitchers from "../assets/pitchers.json";
 import { watchEffect, ref } from "vue";
@@ -40,8 +39,14 @@ watchEffect(async () => {
     <v-container>
       <v-row>
         <v-col>
-          <v-skeleton-loader type="table-thead" v-show="!ready"></v-skeleton-loader>
-          <v-skeleton-loader type="table-tbody" v-show="!ready"></v-skeleton-loader>
+          <v-skeleton-loader
+            type="table-thead"
+            v-show="!ready"
+          ></v-skeleton-loader>
+          <v-skeleton-loader
+            type="table-tbody"
+            v-show="!ready"
+          ></v-skeleton-loader>
           <CareerTable :stats="career['stats']" v-show="ready" />
         </v-col>
       </v-row>
