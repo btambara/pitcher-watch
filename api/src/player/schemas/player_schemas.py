@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from src.player.schemas.stats_schemas import Stats
+from player.schemas.stats_schemas import Stats
 
 class PlayerBase(BaseModel):
     mlb_id: int
@@ -23,4 +23,4 @@ class Player(PlayerBase):
     stats: list[Stats] = []
     
     class Config:
-        orm_mode = True
+        from_attributes = True

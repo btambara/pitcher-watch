@@ -4,3 +4,5 @@ sqlalchemy
 uvicorn
 alembic
 psycopg2-binary
+celery
+celery[redis]

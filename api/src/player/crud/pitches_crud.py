@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 
+from proj.tasks import request_pitches_for_year
 from player.models.player import Pitches
 from player.schemas.pitches_schemas import PitchesCreate, PitchesUpdate
 
@@ -27,44 +28,18 @@ def get_player_pitches(db: Session, mlb_id: int | None = None, skip: int = 0, li
         from_year = mlb_debut_datetime.year
 
         team_id = statsapi.lookup_team(player_stat_data["current_team"])[0]["id"]
-        pitch_list = []
 
+        responses = []
         for year in range(from_year, to_year, 1):
-            pitches = {}
-            team_schedule = statsapi.schedule(team=team_id, start_date=str(year) + "-01-01", end_date=str(year) + "-12-31")
-            pitch_types = {}
+            responses.append({ "UUID": str(request_pitches_for_year.delay(mlb_id, team_id, year))})
+        return responses
+            # pitches_create = PitchesCreate(
+            #     season=year,
+            #     team_id=-1,
+            #     pitches=pitch_list
+            # )
             
-            for game in team_schedule:
-                if game["game_type"] == "R":
-                    game_data = statsapi.get("game_playByPlay", {"gamePk": game["game_id"]})
-                    for play in game_data["allPlays"]:
-                        current_pitcher = play["matchup"]["pitcher"]["id"]
-                        for event in play["playEvents"]:
-                            if "eventType" in event["details"] and event["details"]["eventType"] == "pitching_substitution":
-                                current_pitcher = event["player"]["id"]
-                            elif current_pitcher ==  mlb_id and event["isPitch"] and "type" in event["details"]:
-                                pitch_type = event["details"]["type"]["code"]
-                                
-                                if pitch_type not in pitch_types:
-                                    pitch_types[pitch_type] = 1
-                                else:
-                                    pitch_types[pitch_type] = pitch_types[pitch_type] + 1
-
-            for pitch in pitch_types:
-                pitch_list.append({
-                    "code": pitch,
-                    "amount": pitch_types[pitch]
-                })
-            
-            pitches_create = PitchesCreate(
-                    season=year,
-                    team_id=-1,
-                    pitches=pitch_list
-            )
-            
-            create_pitches(db, pitches_create, mlb_id)
-
-        pitches = db.query(Pitches).filter(Pitches.mlb_id == mlb_id).offset(skip).limit(limit).all()
+            # create_pitches(Depends(get_db), pitches_create, mlb_id)
 
     return pitches
 

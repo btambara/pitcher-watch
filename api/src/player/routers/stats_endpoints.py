@@ -2,9 +2,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from api.deps import get_db
-from src.player.crud import stats_crud
-from src.player.models.player import Stats
-from src.player.schemas import stats_schemas
+from player.crud import stats_crud
+from player.models.player import Stats
+from player.schemas import stats_schemas
 
 router = APIRouter()
 

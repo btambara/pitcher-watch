@@ -4,6 +4,7 @@ import pitchTypes from "../assets/pitchTypes.json";
 
 const pitches = ref();
 const ready = ref(false);
+const hasTasks = ref(false);
 const pitcher = defineProps({
   mlbId: Number,
 });
@@ -13,13 +14,48 @@ watchEffect(async () => {
     `http://localhost/api/v1/player/pitches/all/${pitcher.mlbId}?skip=0`,
   ).then(async (response) => {
     pitches.value = await response.json();
+
     if (pitches.value) {
       let seasonPitches = [];
       for (var pitchStats of pitches.value) {
-        seasonPitches.push(pitchStats);
+        if ("UUID" in pitchStats) {
+          hasTasks.value = true;
+          break;
+        } else {
+          seasonPitches.push(pitchStats);
+        }
       }
-      pitches.value = seasonPitches;
-      ready.value = true;
+
+      if (!hasTasks.value) {
+        pitches.value = seasonPitches;
+        ready.value = true;
+      } else {
+        let requestInterval = setInterval(() => {
+          fetch(
+            `http://localhost/api/v1/player/pitches/all/${pitcher.mlbId}?skip=0`,
+          ).then(async (response) => {
+            pitches.value = await response.json();
+            if (pitches.value) {
+              let seasonPitches = [];
+              hasTasks.value = false;
+              for (var pitchStats of pitches.value) {
+                if ("UUID" in pitchStats) {
+                  hasTasks.value = true;
+                  break;
+                } else {
+                  seasonPitches.push(pitchStats);
+                }
+              }
+
+              if (!hasTasks.value) {
+                pitches.value = seasonPitches;
+                ready.value = true;
+                clearInterval(requestInterval);
+              }
+            }
+          });
+        }, 30000);
+      }
     }
   });
 });
@@ -38,7 +74,10 @@ function findTooltip(code: string) {
 <template>
   <v-container>
     <v-row>
-      <v-skeleton-loader type="table-heading" v-show="!ready"></v-skeleton-loader>
+      <v-skeleton-loader
+        type="table-heading"
+        v-show="!ready"
+      ></v-skeleton-loader>
       <v-skeleton-loader type="table-tbody" v-show="!ready"></v-skeleton-loader>
       <v-col
         v-for="(pitch, index) in pitches"

@@ -2,9 +2,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from api.deps import get_db
-from src.player.crud import player_crud
-from src.player.models.player import Player
-from src.player.schemas import player_schemas
+from player.crud import player_crud
+from player.models.player import Player
+from player.schemas import player_schemas
 
 
 
