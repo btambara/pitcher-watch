@@ -103,11 +103,10 @@ function findTooltip(name: string) {
       <v-col>
         <v-table>
           <thead>
-            <tr>
+            <tr v-if="details && details.info && details.info[0].stats">
               <th class="text-center"><v-btn variant="plain">Season</v-btn></th>
               <th
                 class="text-center"
-                v-if="details && details.info && details.info[0].stats"
                 v-for="(key, index) in Object.keys(details.info[0].stats)"
                 v-bind:key="index"
               >
@@ -122,14 +121,13 @@ function findTooltip(name: string) {
             </tr>
           </thead>
 
-          <tbody>
-            <tr
-              v-if="details && details.info"
-              v-for="(stat, index) in details.info"
-              v-bind:key="index"
-            >
+          <tbody v-if="details && details.info">
+            <tr v-for="(stat, index) in details.info" v-bind:key="index">
               <td>{{ stat.season }}</td>
-              <td v-for="value in Object.values(stat.stats)">
+              <td
+                v-for="(value, index) in Object.values(stat.stats)"
+                v-bind:key="index"
+              >
                 {{ value }}
               </td>
             </tr>

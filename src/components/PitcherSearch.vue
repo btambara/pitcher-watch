@@ -13,8 +13,9 @@ fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
       .get("content-type")
       ?.includes("application/json");
     const data = isJson && (await response.json());
-    let itemPlayers: any = [];
+    let itemPlayers: Array<{ title: string; value: object }> = [];
     for (var player of data) {
+      console.log(player);
       itemPlayers.push({
         title: player["full_name"] + " | " + player["primary_number"],
         value: player,
@@ -25,7 +26,7 @@ fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
     ready.value = true;
   })
   .catch(() => {
-    let itemPlayers: any = [];
+    let itemPlayers: Array<{ title: string; value: object }> = [];
     for (var player of pitchersJSON) {
       itemPlayers.push({
         title: player["full_name"] + " | " + player["primary_number"],
@@ -36,7 +37,7 @@ fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
     ready.value = true;
   });
 
-function handler(pitcher: any) {
+function handler(pitcher: object) {
   if (pitcher) {
     selectedPitcher.value = pitcher;
     pitcherDialog.value = true;
