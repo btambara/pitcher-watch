@@ -30,7 +30,7 @@ def get_player_stats(db: Session, mlb_id: int | None = None, skip: int = 0, limi
                 stats=season_stats["stats"]
             )
             create_stats(db, stats_create, mlb_id)
-        
+
         player_stats = db.query(Stats).filter(Stats.mlb_id == mlb_id).offset(skip).limit(limit).all()
 
     return player_stats
@@ -43,7 +43,7 @@ def create_stats(db: Session, stats: StatsCreate, mlb_id: int):
         stats=stats.stats
 
     )
-    
+
     db.add(db_stats)
     db.commit()
     db.refresh(db_stats)

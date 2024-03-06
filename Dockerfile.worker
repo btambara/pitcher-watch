@@ -4,7 +4,7 @@ ENV PYTHONPATH "${PYTHONPATH}:/api/src"
 
 WORKDIR /api
 
-COPY requirements.txt /api/requirements.txt
+COPY setup/requirements.txt /api/requirements.txt
 COPY api /api/
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt

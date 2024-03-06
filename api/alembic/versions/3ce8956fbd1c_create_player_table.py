@@ -1,7 +1,7 @@
 """create player table
 
 Revision ID: 3ce8956fbd1c
-Revises: 
+Revises:
 Create Date: 2024-02-16 17:47:56.111687
 
 """

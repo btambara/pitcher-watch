@@ -22,7 +22,7 @@ def get_player_pitches(db: Session, mlb_id: int | None = None, skip: int = 0, li
             to_year = datetime.now().year + 1
         else:
             to_year = datetime.now().year
-        
+
         player_stat_data = statsapi.player_stat_data(mlb_id)
         mlb_debut_datetime = datetime.strptime(player_stat_data['mlb_debut'], "%Y-%m-%d")
         from_year = mlb_debut_datetime.year
@@ -38,7 +38,7 @@ def get_player_pitches(db: Session, mlb_id: int | None = None, skip: int = 0, li
             #     team_id=-1,
             #     pitches=pitch_list
             # )
-            
+
             # create_pitches(Depends(get_db), pitches_create, mlb_id)
 
     return pitches
@@ -51,7 +51,7 @@ def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
         pitches=pitches.pitches
 
     )
-    
+
     db.add(db_pitches)
     db.commit()
     db.refresh(db_pitches)

@@ -3,7 +3,7 @@ ENV PYTHONPATH "${PYTHONPATH}:/api/src"
 
 WORKDIR /api
 
-COPY requirements.txt /api/requirements.txt
+COPY setup/requirements.txt /api/requirements.txt
 COPY alembic.ini /api/alembic.ini
 COPY api /api/
 
