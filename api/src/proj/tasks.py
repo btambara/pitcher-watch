@@ -14,9 +14,9 @@ class RetrievePitchesTask(Task):
             team_id=args[1],
             pitches=retval
         )
-        
+
         create_pitches(SessionLocal(), pitches_create, args[0])
-        
+
 def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
     db_pitches = Pitches(
         mlb_id=mlb_id,
@@ -25,7 +25,7 @@ def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
         pitches=pitches.pitches
 
     )
-    
+
     db.add(db_pitches)
     db.commit()
     db.refresh(db_pitches)
@@ -48,7 +48,7 @@ def request_pitches_for_year(mlb_id:int, team_id:int, year:int) -> List[Dict[str
                         current_pitcher = event["player"]["id"]
                     elif current_pitcher ==  mlb_id and event["isPitch"] and "type" in event["details"]:
                         pitch_type = event["details"]["type"]["code"]
-                        
+
                         if pitch_type not in pitch_types:
                             pitch_types[pitch_type] = 1
                         else:

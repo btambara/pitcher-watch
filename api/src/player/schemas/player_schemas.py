@@ -21,6 +21,6 @@ class PlayerUpdate(PlayerBase):
 class Player(PlayerBase):
     id: int
     stats: list[Stats] = []
-    
+
     class Config:
         from_attributes = True

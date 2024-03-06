@@ -31,7 +31,7 @@ class Stats(Base):
 
 class Pitches(Base):
     __tablename__ = "pitches"
-    
+
     id = Column(Integer, primary_key=True)
     mlb_id = Column(Integer, ForeignKey("players.mlb_id"))
     player = relationship("Player", back_populates="pitches")

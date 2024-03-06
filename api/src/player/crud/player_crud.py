@@ -22,7 +22,7 @@ def get_all_players(db: Session, position: str | None = None, skip: int = 0, lim
                             )
             create_player(db, player_create)
         all_players = db.query(Player).offset(skip).limit(limit).all()
-    
+
     if not position:
         return all_players
     else:
@@ -45,7 +45,7 @@ def create_player(db: Session, player: PlayerCreate):
         current_team_id=player.current_team_id,
         primary_position_code=player.primary_position_code
     )
-    
+
     db.add(db_player)
     db.commit()
     db.refresh(db_player)
