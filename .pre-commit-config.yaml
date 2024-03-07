@@ -8,6 +8,7 @@ repos:
     -   id: check-added-large-files
     -   id: no-commit-to-branch
         args: [--branch, main]
+        stages: [ pre-commit ]
 -   repo: https://github.com/psf/black
     rev: 24.2.0
     hooks:
