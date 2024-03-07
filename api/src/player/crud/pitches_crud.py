@@ -46,7 +46,7 @@ def get_player_pitches(
                 {"UUID": str(request_pitches_for_year.delay(mlb_id, team_id, year))}
             )
         return responses
-
+    pitches.sort(key=lambda x: x.season, reverse=True)
     return pitches
 
 
