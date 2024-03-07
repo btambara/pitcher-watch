@@ -1,17 +1,26 @@
-from sqlalchemy.orm import Session
-
-from proj.tasks import request_pitches_for_year
-from player.models.player import Pitches
-from player.schemas.pitches_schemas import PitchesCreate, PitchesUpdate
+from datetime import datetime
 
 import statsapi
-from datetime import datetime
+from player.models.player import Pitches
+from player.schemas.pitches_schemas import PitchesCreate, PitchesUpdate
+from proj.tasks import request_pitches_for_year
+from sqlalchemy.orm import Session
+
 
 def get_pitches(db: Session, id: int):
     return db.query(Pitches).filter(Pitches.id == id).first()
 
-def get_player_pitches(db: Session, mlb_id: int | None = None, skip: int = 0, limit: int = 100):
-    pitches = db.query(Pitches).filter(Pitches.mlb_id == mlb_id).offset(skip).limit(limit).all()
+
+def get_player_pitches(
+    db: Session, mlb_id: int | None = None, skip: int = 0, limit: int = 100
+):
+    pitches = (
+        db.query(Pitches)
+        .filter(Pitches.mlb_id == mlb_id)
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
     if len(pitches) == 0:
         season_start = statsapi.latest_season()["regularSeasonStartDate"]
@@ -24,32 +33,36 @@ def get_player_pitches(db: Session, mlb_id: int | None = None, skip: int = 0, li
             to_year = datetime.now().year
 
         player_stat_data = statsapi.player_stat_data(mlb_id)
-        mlb_debut_datetime = datetime.strptime(player_stat_data['mlb_debut'], "%Y-%m-%d")
+        mlb_debut_datetime = datetime.strptime(
+            player_stat_data["mlb_debut"], "%Y-%m-%d"
+        )
         from_year = mlb_debut_datetime.year
 
         team_id = statsapi.lookup_team(player_stat_data["current_team"])[0]["id"]
 
         responses = []
         for year in range(from_year, to_year, 1):
-            responses.append({ "UUID": str(request_pitches_for_year.delay(mlb_id, team_id, year))})
+            responses.append(
+                {"UUID": str(request_pitches_for_year.delay(mlb_id, team_id, year))}
+            )
         return responses
-            # pitches_create = PitchesCreate(
-            #     season=year,
-            #     team_id=-1,
-            #     pitches=pitch_list
-            # )
+        # pitches_create = PitchesCreate(
+        #     season=year,
+        #     team_id=-1,
+        #     pitches=pitch_list
+        # )
 
-            # create_pitches(Depends(get_db), pitches_create, mlb_id)
+        # create_pitches(Depends(get_db), pitches_create, mlb_id)
 
     return pitches
+
 
 def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
     db_pitches = Pitches(
         mlb_id=mlb_id,
         season=pitches.season,
         team_id=pitches.team_id,
-        pitches=pitches.pitches
-
+        pitches=pitches.pitches,
     )
 
     db.add(db_pitches)

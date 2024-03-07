@@ -1,8 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
-from sqlalchemy.orm import declarative_base
 from sqlalchemy.dialects.postgresql import JSONB
-
+from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
 
@@ -19,6 +17,7 @@ class Player(Base):
     stats = relationship("Stats", back_populates="player")
     pitches = relationship("Pitches", back_populates="player")
 
+
 class Stats(Base):
     __tablename__ = "stats"
 
@@ -28,6 +27,7 @@ class Stats(Base):
     season = Column(Integer)
     team_id = Column(Integer)
     stats = Column(JSONB)
+
 
 class Pitches(Base):
     __tablename__ = "pitches"

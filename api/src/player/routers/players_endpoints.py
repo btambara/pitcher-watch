@@ -1,12 +1,11 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+
 from api.deps import get_db
+from fastapi import APIRouter, Depends, HTTPException
 from player.crud import player_crud
 from player.models.player import Player
 from player.schemas import player_schemas
-
-
+from sqlalchemy.orm import Session
 
 router = APIRouter()
 
@@ -78,7 +77,9 @@ def read_player_by_primary_number(
     """
     Get player by primary number.
     """
-    player = player_crud.get_player_by_primary_number(db=db, primary_number=primary_number)
+    player = player_crud.get_player_by_primary_number(
+        db=db, primary_number=primary_number
+    )
     if not player:
         raise HTTPException(status_code=404, detail="No player with that number")
     return player
@@ -123,7 +124,7 @@ def read_all_players(
     db: Session = Depends(get_db),
     position: str | None = None,
     skip: int = 0,
-    limit: int | None = None
+    limit: int | None = None,
 ) -> List[Player]:
     """
     Get all players.

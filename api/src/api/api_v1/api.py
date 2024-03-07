@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from player.routers import players_endpoints, stats_endpoints, pitches_endpoints
+from player.routers import pitches_endpoints, players_endpoints, stats_endpoints
 
 player_router = APIRouter()
 player_router.include_router(

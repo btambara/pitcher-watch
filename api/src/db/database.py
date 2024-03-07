@@ -1,7 +1,6 @@
+from player.models import player
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from player.models import player
 
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:example@db/pitchdb"
 

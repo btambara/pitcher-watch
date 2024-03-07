@@ -13,12 +13,31 @@ repos:
     hooks:
     -   id: black
         args: [ --check ]
+-   repo: https://github.com/psf/black
+    rev: 24.2.0
+    hooks:
+    -   id: black
+        name: black-fix
+        stages: [ manual ]
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.1
     hooks:
     -   id: ruff
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.3.1
+    hooks:
+    -   id: ruff
+        name: ruff-fix
+        args: [ --fix, --exit-non-zero-on-fix ]
+        stages: [ manual ]
 -   repo: https://github.com/pycqa/isort
     rev: 5.13.2
     hooks:
     -   id: isort
         args: [ --check-only ]
+-   repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+    -   id: isort
+        name: isort-fix
+        stages: [ manual ]

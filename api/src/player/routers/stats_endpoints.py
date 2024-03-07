@@ -1,12 +1,14 @@
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+
 from api.deps import get_db
+from fastapi import APIRouter, Depends, HTTPException
 from player.crud import stats_crud
 from player.models.player import Stats
 from player.schemas import stats_schemas
+from sqlalchemy.orm import Session
 
 router = APIRouter()
+
 
 @router.post("/{mlb_id}", response_model=stats_schemas.Stats)
 def create_stats(
@@ -35,6 +37,7 @@ def read_stats(
     if not stats:
         raise HTTPException(status_code=404, detail="Stats not found.")
     return stats
+
 
 @router.put("/{id}", response_model=stats_schemas.Stats)
 def update_stats(
@@ -75,7 +78,7 @@ def read_all_stats_by_mlb_id(
     db: Session = Depends(get_db),
     mlb_id: int,
     skip: int = 0,
-    limit: int | None = None
+    limit: int | None = None,
 ) -> List[Stats]:
     """
     Get stats for player.
