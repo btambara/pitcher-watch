@@ -10,17 +10,19 @@ repos:
     rev: 24.2.0
     hooks:
     -   id: black
+        name: python-format-check
         args: [ --check ]
 -   repo: https://github.com/psf/black
     rev: 24.2.0
     hooks:
     -   id: black
-        name: black-fix
+        name: python-format-fix
         stages: [ manual ]
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.1
     hooks:
     -   id: ruff
+        name: ruff-check
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.1
     hooks:
@@ -32,6 +34,7 @@ repos:
     rev: 5.13.2
     hooks:
     -   id: isort
+        name: isort-check
         args: [ --check-only ]
 -   repo: https://github.com/pycqa/isort
     rev: 5.13.2
@@ -39,3 +42,37 @@ repos:
     -   id: isort
         name: isort-fix
         stages: [ manual ]
+-   repo: local
+    hooks:
+    -   id: eslint-check
+        name: eslint-check
+        language: node
+        entry: npm run lint
+        files: ^src/.*
+        exclude: ^src/(.*\.css|assets/.*)
+-   repo: local
+    hooks:
+    -   id: eslint-fix
+        name: eslint-fix
+        language: node
+        entry: npm run lint-fix
+        stages: [ manual ]
+        files: ^src/.*
+        exclude: ^src/(.*\.css|assets/.*)
+-   repo: local
+    hooks:
+    -   id: prettier-check
+        name: prettier-check
+        language: node
+        entry: npm run format-check
+        files: ^src/.*
+        exclude: ^src/assets/.*
+-   repo: local
+    hooks:
+    -   id: prettier-fix
+        name: prettier-fix
+        language: node
+        entry: npm run format
+        stages: [ manual ]
+        files: ^src/.*
+        exclude: ^src/assets/.*
