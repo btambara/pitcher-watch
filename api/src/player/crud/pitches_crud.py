@@ -46,13 +46,6 @@ def get_player_pitches(
                 {"UUID": str(request_pitches_for_year.delay(mlb_id, team_id, year))}
             )
         return responses
-        # pitches_create = PitchesCreate(
-        #     season=year,
-        #     team_id=-1,
-        #     pitches=pitch_list
-        # )
-
-        # create_pitches(Depends(get_db), pitches_create, mlb_id)
 
     return pitches
 
