@@ -13,3 +13,4 @@ jobs:
     - uses: actions/setup-python@v3
     - uses: actions/setup-node@v4.0.2
     - uses: pre-commit/action@v3.0.1
+    - run: npm ci
