@@ -15,7 +15,6 @@ fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
     const data = isJson && (await response.json());
     let itemPlayers: Array<{ title: string; value: object }> = [];
     for (var player of data) {
-      console.log(player);
       itemPlayers.push({
         title: player["full_name"] + " | " + player["primary_number"],
         value: player,

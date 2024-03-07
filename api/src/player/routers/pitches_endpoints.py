@@ -84,6 +84,6 @@ def read_all_pitches_by_mlb_id(
     limit: int | None = None,
 ) -> Union[List[Pitches], List[Dict[str, str]]]:
     """
-    Get pitches for player or returns the UUID of celery task.
+    Get pitches for player or returns a list of celery task IDs.
     """
     return pitches_crud.get_player_pitches(db=db, mlb_id=mlb_id, skip=skip, limit=limit)

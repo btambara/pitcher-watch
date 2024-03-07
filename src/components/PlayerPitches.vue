@@ -3,8 +3,8 @@ import { ref, watchEffect } from "vue";
 import pitchTypes from "../assets/pitchTypes.json";
 
 const pitches = ref();
+const tasks = ref();
 const ready = ref(false);
-const hasTasks = ref(false);
 const pitcher = defineProps({
   mlbId: Number,
 });
@@ -13,49 +13,44 @@ watchEffect(async () => {
   fetch(
     `http://localhost/api/v1/player/pitches/all/${pitcher.mlbId}?skip=0`,
   ).then(async (response) => {
-    pitches.value = await response.json();
+    const answer = await response.json();
 
-    if (pitches.value) {
-      let seasonPitches = [];
-      for (var pitchStats of pitches.value) {
-        if ("UUID" in pitchStats) {
-          hasTasks.value = true;
-          break;
-        } else {
-          seasonPitches.push(pitchStats);
-        }
+    for (var item of answer) {
+      if ("UUID" in item) {
+        tasks.value = answer;
+        break;
       }
+    }
 
-      if (!hasTasks.value) {
-        pitches.value = seasonPitches;
-        ready.value = true;
-      } else {
-        let requestInterval = setInterval(() => {
+    if (tasks.value) {
+      let tasksInterval = setInterval(() => {
+        for (var task of tasks.value) {
+          fetch(`http://localhost/api/v1/celery/?id=${task["UUID"]}`).then(
+            async (response) => {
+              let result = await response.json();
+
+              if ("result" in result && result["result"] == true) {
+                const index = tasks.value.indexOf(task);
+                tasks.value.splice(index, 1);
+              }
+            },
+          );
+        }
+
+        if (!tasks.value || tasks.value.length == 0) {
           fetch(
             `http://localhost/api/v1/player/pitches/all/${pitcher.mlbId}?skip=0`,
           ).then(async (response) => {
-            pitches.value = await response.json();
-            if (pitches.value) {
-              let seasonPitches = [];
-              hasTasks.value = false;
-              for (var pitchStats of pitches.value) {
-                if ("UUID" in pitchStats) {
-                  hasTasks.value = true;
-                  break;
-                } else {
-                  seasonPitches.push(pitchStats);
-                }
-              }
-
-              if (!hasTasks.value) {
-                pitches.value = seasonPitches;
-                ready.value = true;
-                clearInterval(requestInterval);
-              }
-            }
+            const answer = await response.json();
+            pitches.value = answer;
+            ready.value = true;
+            clearInterval(tasksInterval);
           });
-        }, 30000);
-      }
+        }
+      }, 14000);
+    } else {
+      pitches.value = answer;
+      ready.value = true;
     }
   });
 });
@@ -74,11 +69,15 @@ function findTooltip(code: string) {
 <template>
   <v-container>
     <v-row>
-      <v-skeleton-loader
-        type="table-heading"
-        v-show="!ready"
-      ></v-skeleton-loader>
-      <v-skeleton-loader type="table-tbody" v-show="!ready"></v-skeleton-loader>
+      <v-col v-show="!ready">
+        <div class="text-h5 mb-4" v-if="tasks">
+          {{ "Downloading " + (tasks.length + 1) + " seasons..." }}
+        </div>
+        <v-progress-linear
+          indeterminate
+          v-show="!ready && tasks"
+        ></v-progress-linear>
+      </v-col>
       <v-col
         v-for="(pitch, index) in pitches"
         v-bind:key="index"
