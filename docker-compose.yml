@@ -12,11 +12,20 @@ services:
     volumes:
       - redis_volume:/data
 
-  celery_worker:
+  celery_worker_1:
     build:
       dockerfile: Dockerfile.worker
-    container_name: pw-celery-worker
-    command: ['celery', '-A', 'proj.celery', 'worker', '-l', 'info']
+    container_name: pw-celery-worker-1
+    command: ['celery', '-A', 'proj.celery', 'worker', '-l', 'info', '--concurrency=4']
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  celery_worker_2:
+    build:
+      dockerfile: Dockerfile.worker
+    container_name: pw-celery-worker-2
+    command: ['celery', '-A', 'proj.celery', 'worker', '-l', 'info', '--concurrency=4']
     depends_on:
       redis:
         condition: service_healthy
