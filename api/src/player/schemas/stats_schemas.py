@@ -1,9 +1,11 @@
 from pydantic import BaseModel
 
+
 class StatsBase(BaseModel):
     season: int
     team_id: int
     stats: dict
+
 
 class StatsCreate(StatsBase):
     pass

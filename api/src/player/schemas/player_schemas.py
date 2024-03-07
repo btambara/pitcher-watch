@@ -1,6 +1,6 @@
+from player.schemas.stats_schemas import Stats
 from pydantic import BaseModel
 
-from player.schemas.stats_schemas import Stats
 
 class PlayerBase(BaseModel):
     mlb_id: int

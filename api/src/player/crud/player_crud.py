@@ -1,41 +1,57 @@
-from sqlalchemy.orm import Session
-
+import statsapi
 from player.models.player import Player
 from player.schemas.player_schemas import PlayerCreate, PlayerUpdate
+from sqlalchemy.orm import Session
 
-import statsapi
 
 def get_player(db: Session, id: int):
     return db.query(Player).filter(Player.id == id).first()
 
-def get_all_players(db: Session, position: str | None = None, skip: int = 0, limit: int = 100):
+
+def get_all_players(
+    db: Session, position: str | None = None, skip: int = 0, limit: int = 100
+):
     all_players = db.query(Player).offset(skip).limit(limit).all()
     if len(all_players) == 0:
-        for player_data in statsapi.get("sports_players", { "sportId": 1, "season":  2024})["people"]:
-            primary_number = player_data["primaryNumber"] if "primaryNumber" in player_data else -1
+        for player_data in statsapi.get(
+            "sports_players", {"sportId": 1, "season": 2024}
+        )["people"]:
+            primary_number = (
+                player_data["primaryNumber"] if "primaryNumber" in player_data else -1
+            )
             player_create = PlayerCreate(
-                                mlb_id=player_data["id"],
-                                full_name=player_data["fullName"],
-                                primary_number=primary_number,
-                                primary_position_code=player_data["primaryPosition"]["code"],
-                                current_team_id=player_data["currentTeam"]["id"]
-                            )
+                mlb_id=player_data["id"],
+                full_name=player_data["fullName"],
+                primary_number=primary_number,
+                primary_position_code=player_data["primaryPosition"]["code"],
+                current_team_id=player_data["currentTeam"]["id"],
+            )
             create_player(db, player_create)
         all_players = db.query(Player).offset(skip).limit(limit).all()
 
     if not position:
         return all_players
     else:
-        return db.query(Player).filter(Player.primary_position_code == position).offset(skip).limit(limit).all()
+        return (
+            db.query(Player)
+            .filter(Player.primary_position_code == position)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
+
 
 def get_player_by_mlb_id(db: Session, mlb_id: int):
     return db.query(Player).filter(Player.mlb_id == mlb_id).first()
 
+
 def get_player_by_full_name(db: Session, full_name: str):
     return db.query(Player).filter(Player.full_name == full_name).first()
 
+
 def get_player_by_primary_number(db: Session, primary_number: int):
     return db.query(Player).filter(Player.primary_number == primary_number).first()
+
 
 def create_player(db: Session, player: PlayerCreate):
     db_player = Player(
@@ -43,7 +59,7 @@ def create_player(db: Session, player: PlayerCreate):
         full_name=player.full_name,
         primary_number=player.primary_number,
         current_team_id=player.current_team_id,
-        primary_position_code=player.primary_position_code
+        primary_position_code=player.primary_position_code,
     )
 
     db.add(db_player)

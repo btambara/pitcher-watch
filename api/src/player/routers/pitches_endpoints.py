@@ -1,12 +1,14 @@
 from typing import Dict, List, Union
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+
 from api.deps import get_db
+from fastapi import APIRouter, Depends, HTTPException
 from player.crud import pitches_crud
 from player.models.player import Pitches
 from player.schemas import pitches_schemas
+from sqlalchemy.orm import Session
 
 router = APIRouter()
+
 
 @router.post("/{mlb_id}", response_model=pitches_schemas.Pitches)
 def create_pitches(
@@ -35,6 +37,7 @@ def read_pitches(
     if not pitches:
         raise HTTPException(status_code=404, detail="Pitches not found.")
     return pitches
+
 
 @router.put("/{id}", response_model=pitches_schemas.Pitches)
 def update_pitches(
@@ -69,13 +72,16 @@ def delete_pitches(
     return pitches
 
 
-@router.get("/all/{mlb_id}", response_model=Union[List[pitches_schemas.Pitches], List[Dict[str, str]]])
+@router.get(
+    "/all/{mlb_id}",
+    response_model=Union[List[pitches_schemas.Pitches], List[Dict[str, str]]],
+)
 def read_all_pitches_by_mlb_id(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
     skip: int = 0,
-    limit: int | None = None
+    limit: int | None = None,
 ) -> Union[List[Pitches], List[Dict[str, str]]]:
     """
     Get pitches for player or returns the UUID of celery task.

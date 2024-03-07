@@ -1,29 +1,28 @@
 from typing import Dict, List
-from sqlalchemy.orm import Session
-from player.models.player import Pitches
-from player.schemas.pitches_schemas import PitchesCreate
-from .celery import app
+
 import statsapi
 from celery import Task
 from db.database import SessionLocal
+from player.models.player import Pitches
+from player.schemas.pitches_schemas import PitchesCreate
+from sqlalchemy.orm import Session
+
+from .celery import app
+
 
 class RetrievePitchesTask(Task):
     def on_success(self, retval, task_id, args, kwargs) -> None:
-        pitches_create = PitchesCreate(
-            season=args[2],
-            team_id=args[1],
-            pitches=retval
-        )
+        pitches_create = PitchesCreate(season=args[2], team_id=args[1], pitches=retval)
 
         create_pitches(SessionLocal(), pitches_create, args[0])
+
 
 def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
     db_pitches = Pitches(
         mlb_id=mlb_id,
         season=pitches.season,
         team_id=pitches.team_id,
-        pitches=pitches.pitches
-
+        pitches=pitches.pitches,
     )
 
     db.add(db_pitches)
@@ -33,8 +32,12 @@ def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
 
 
 @app.task(base=RetrievePitchesTask)
-def request_pitches_for_year(mlb_id:int, team_id:int, year:int) -> List[Dict[str, str | int]]:
-    team_schedule = statsapi.schedule(team=team_id, start_date=str(year) + "-01-01", end_date=str(year) + "-12-31")
+def request_pitches_for_year(
+    mlb_id: int, team_id: int, year: int
+) -> List[Dict[str, str | int]]:
+    team_schedule = statsapi.schedule(
+        team=team_id, start_date=str(year) + "-01-01", end_date=str(year) + "-12-31"
+    )
     pitch_types = {}
     pitch_list = []
 
@@ -44,9 +47,16 @@ def request_pitches_for_year(mlb_id:int, team_id:int, year:int) -> List[Dict[str
             for play in game_data["allPlays"]:
                 current_pitcher = play["matchup"]["pitcher"]["id"]
                 for event in play["playEvents"]:
-                    if "eventType" in event["details"] and event["details"]["eventType"] == "pitching_substitution":
+                    if (
+                        "eventType" in event["details"]
+                        and event["details"]["eventType"] == "pitching_substitution"
+                    ):
                         current_pitcher = event["player"]["id"]
-                    elif current_pitcher ==  mlb_id and event["isPitch"] and "type" in event["details"]:
+                    elif (
+                        current_pitcher == mlb_id
+                        and event["isPitch"]
+                        and "type" in event["details"]
+                    ):
                         pitch_type = event["details"]["type"]["code"]
 
                         if pitch_type not in pitch_types:
@@ -55,9 +65,6 @@ def request_pitches_for_year(mlb_id:int, team_id:int, year:int) -> List[Dict[str
                             pitch_types[pitch_type] = pitch_types[pitch_type] + 1
 
     for pitch in pitch_types:
-        pitch_list.append({
-            "code": pitch,
-            "amount": pitch_types[pitch]
-        })
+        pitch_list.append({"code": pitch, "amount": pitch_types[pitch]})
 
     return pitch_list
