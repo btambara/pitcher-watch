@@ -42,7 +42,7 @@ def get_player_stats(
             .limit(limit)
             .all()
         )
-
+    player_stats.sort(key=lambda x: x.season, reverse=True)
     return player_stats
 
 
