@@ -79,6 +79,7 @@ function findTooltip(code: string) {
         ></v-progress-linear>
       </v-col>
       <v-col
+        cols="12"
         v-for="(pitch, index) in pitches"
         v-bind:key="index"
         v-show="ready"
