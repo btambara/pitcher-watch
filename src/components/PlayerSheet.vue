@@ -34,12 +34,13 @@ import RoyalsLogo from "../assets/logos/kansas-city-royals-logo.svg";
 import DodgersLogo from "../assets/logos/los-angeles-dodgers-logo.svg";
 import NationalsLogo from "../assets/logos/washington-nationals-logo.svg";
 import MetsLogo from "../assets/logos/new-york-mets-logo.svg";
+import { getTeamColors } from "../helpers";
 
 type Pitcher = {
   fullName: string;
   primaryNumber: string;
   primaryPosition: string;
-  currentTeamId: string;
+  currentTeamId: number;
   mlbId: number;
 };
 
@@ -122,6 +123,15 @@ function findLogo(currentTeamId: number) {
       return "";
   }
 }
+
+function getBackgroundColor(currentTeamId: number) {
+  var teamColors = getTeamColors(currentTeamId);
+  if (currentTeamId == 133 && teamColors && "second" in teamColors) {
+    return teamColors["second"];
+  }
+
+  return "primary";
+}
 </script>
 
 <template>
@@ -135,6 +145,7 @@ function findLogo(currentTeamId: number) {
             :primary-number="pitcher.primaryNumber"
             :primary-position="findAbbrev(pitcher.primaryPosition)"
             :logo="findLogo(Number(pitcher.currentTeamId))"
+            :currentTeamId="pitcher.currentTeamId"
           />
         </v-col>
         <v-spacer class="d-none d-sm-flex"></v-spacer>
@@ -142,7 +153,11 @@ function findLogo(currentTeamId: number) {
       <v-row>
         <v-col>
           <v-card class="ml-4 mr-4 mb-4" rounded="lg">
-            <v-tabs v-model="tab" fixed-tabs bg-color="primary">
+            <v-tabs
+              v-model="tab"
+              fixed-tabs
+              :bg-color="getBackgroundColor(pitcher.currentTeamId)"
+            >
               <v-tab>Stats</v-tab>
               <v-tab>Pitches</v-tab>
             </v-tabs>
@@ -156,7 +171,10 @@ function findLogo(currentTeamId: number) {
 
               <v-window-item :key="1">
                 <v-virtual-scroll height="400" :items="[pitcher]">
-                  <PlayerPitches :mlb-id="pitcher.mlbId" />
+                  <PlayerPitches
+                    :mlb-id="pitcher.mlbId"
+                    :current-team-id="pitcher.currentTeamId"
+                  />
                 </v-virtual-scroll>
               </v-window-item>
             </v-window>

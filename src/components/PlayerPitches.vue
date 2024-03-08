@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
 import pitchTypes from "../assets/pitchTypes.json";
+import { getTeamColors } from "../helpers";
 
 const pitches = ref();
 const tasks = ref();
 const ready = ref(false);
 const pitcher = defineProps({
   mlbId: Number,
+  currentTeamId: {
+    type: Number,
+    required: true,
+  },
 });
 
 watchEffect(async () => {
@@ -64,6 +69,20 @@ function findTooltip(code: string) {
 
   return "UNKNOWN";
 }
+
+function getColorScheme(currentTeamId: number) {
+  var teamColors = getTeamColors(currentTeamId);
+  if (
+    currentTeamId == 133 &&
+    teamColors &&
+    "first" in teamColors &&
+    "second" in teamColors
+  ) {
+    return { background: teamColors["first"], color: teamColors["second"] };
+  }
+
+  return "";
+}
 </script>
 
 <template>
@@ -84,7 +103,10 @@ function findTooltip(code: string) {
         v-bind:key="index"
         v-show="ready"
       >
-        <div class="text-h5 text-center mt-2 bg-primary">
+        <div
+          class="text-h5 text-center mt-2"
+          :style="getColorScheme(pitcher.currentTeamId)"
+        >
           {{ pitch["season"] }}
         </div>
 

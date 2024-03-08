@@ -11,6 +11,11 @@
     "name": "Oakland Athletics",
     "link": "/api/v1/teams/133",
     "season": 2024,
+    "colors": {
+      "first": "#003831",
+      "second": "#EFB21E",
+      "third": "#A2AAAD"
+    },
     "venue": {
       "id": 10,
       "name": "Oakland Coliseum",

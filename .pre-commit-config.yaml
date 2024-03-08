@@ -66,7 +66,6 @@ repos:
         language: node
         entry: npm run format-check
         files: ^src/.*
-        exclude: ^src/assets/.*
 -   repo: local
     hooks:
     -   id: prettier-fix
@@ -75,4 +74,3 @@ repos:
         entry: npm run format
         stages: [ manual ]
         files: ^src/.*
-        exclude: ^src/assets/.*
