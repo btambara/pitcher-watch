@@ -12,7 +12,7 @@ const details = defineProps<Player>();
 
 function getBackgroundColor(currentTeamId: number) {
   var teamColors = getTeamColors(currentTeamId);
-  if (currentTeamId == 133 && teamColors && "first" in teamColors) {
+  if (teamColors && "first" in teamColors) {
     return teamColors["first"];
   }
 
@@ -21,7 +21,7 @@ function getBackgroundColor(currentTeamId: number) {
 
 function getLogoBackgroundColor(currentTeamId: number) {
   var teamColors = getTeamColors(currentTeamId);
-  if (currentTeamId == 133 && teamColors && "third" in teamColors) {
+  if (teamColors && "third" in teamColors) {
     return teamColors["third"];
   }
 

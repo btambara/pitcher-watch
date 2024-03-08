@@ -14,7 +14,8 @@
     "colors": {
       "first": "#003831",
       "second": "#EFB21E",
-      "third": "#A2AAAD"
+      "third": "#A2AAAD",
+      "forth": ""
     },
     "venue": {
       "id": 10,
@@ -60,6 +61,12 @@
     "name": "Pittsburgh Pirates",
     "link": "/api/v1/teams/134",
     "season": 2024,
+    "colors": {
+      "first": "#27251F",
+      "second": "#FDB827",
+      "third": "",
+      "forth": ""
+    },
     "venue": { "id": 31, "name": "PNC Park", "link": "/api/v1/venues/31" },
     "springVenue": { "id": 2526, "link": "/api/v1/venues/2526" },
     "teamCode": "pit",
@@ -100,6 +107,12 @@
     "name": "San Diego Padres",
     "link": "/api/v1/teams/135",
     "season": 2024,
+    "colors": {
+      "first": "#2F241D",
+      "second": "#FFC425",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 2680,
       "name": "Petco Park",
@@ -144,6 +157,12 @@
     "name": "Seattle Mariners",
     "link": "/api/v1/teams/136",
     "season": 2024,
+    "colors": {
+      "first": "#0C2C56",
+      "second": "#005C5C",
+      "third": "#C4CED4",
+      "forth": "#D50032"
+    },
     "venue": {
       "id": 680,
       "name": "T-Mobile Park",
@@ -188,6 +207,12 @@
     "name": "San Francisco Giants",
     "link": "/api/v1/teams/137",
     "season": 2024,
+    "colors": {
+      "first": "#FD5A1E",
+      "second": "#27251F",
+      "third": "#EFD19F",
+      "forth": "#AE8F6F"
+    },
     "venue": {
       "id": 2395,
       "name": "Oracle Park",
@@ -232,6 +257,12 @@
     "name": "St. Louis Cardinals",
     "link": "/api/v1/teams/138",
     "season": 2024,
+    "colors": {
+      "first": "#C41E3A",
+      "second": "#0C2340",
+      "third": "#FEDB00",
+      "forth": "#FFFFFF"
+    },
     "venue": {
       "id": 2889,
       "name": "Busch Stadium",
@@ -276,6 +307,12 @@
     "name": "Tampa Bay Rays",
     "link": "/api/v1/teams/139",
     "season": 2024,
+    "colors": {
+      "first": "#092C5C",
+      "second": "#8FBCE6",
+      "third": "#F5D130",
+      "forth": "#FFFFFF"
+    },
     "venue": {
       "id": 12,
       "name": "Tropicana Field",
@@ -320,6 +357,12 @@
     "name": "Texas Rangers",
     "link": "/api/v1/teams/140",
     "season": 2024,
+    "colors": {
+      "first": "#003278",
+      "second": "#C0111F",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 5325,
       "name": "Globe Life Field",
@@ -364,6 +407,12 @@
     "name": "Toronto Blue Jays",
     "link": "/api/v1/teams/141",
     "season": 2024,
+    "colors": {
+      "first": "#134A8E",
+      "second": "#1D2D5C",
+      "third": "#E8291C",
+      "forth": ""
+    },
     "venue": { "id": 14, "name": "Rogers Centre", "link": "/api/v1/venues/14" },
     "springVenue": { "id": 2536, "link": "/api/v1/venues/2536" },
     "teamCode": "tor",
@@ -404,6 +453,12 @@
     "name": "Minnesota Twins",
     "link": "/api/v1/teams/142",
     "season": 2024,
+    "colors": {
+      "first": "#002B5C",
+      "second": "#D31145",
+      "third": "#B9975B",
+      "forth": ""
+    },
     "venue": {
       "id": 3312,
       "name": "Target Field",
@@ -448,6 +503,12 @@
     "name": "Philadelphia Phillies",
     "link": "/api/v1/teams/143",
     "season": 2024,
+    "colors": {
+      "first": "#E81828",
+      "second": "#002D72",
+      "third": "#FFFFFF",
+      "forth": ""
+    },
     "venue": {
       "id": 2681,
       "name": "Citizens Bank Park",
@@ -492,6 +553,12 @@
     "name": "Atlanta Braves",
     "link": "/api/v1/teams/144",
     "season": 2024,
+    "colors": {
+      "first": "#CE1141",
+      "second": "#13274F",
+      "third": "#EAAA00",
+      "forth": "#FFFFFF"
+    },
     "venue": {
       "id": 4705,
       "name": "Truist Park",
@@ -536,6 +603,12 @@
     "name": "Chicago White Sox",
     "link": "/api/v1/teams/145",
     "season": 2024,
+    "colors": {
+      "first": "#27251F",
+      "second": "#C4CED4",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 4,
       "name": "Guaranteed Rate Field",
@@ -580,6 +653,12 @@
     "name": "Miami Marlins",
     "link": "/api/v1/teams/146",
     "season": 2024,
+    "colors": {
+      "first": "#00A3E0",
+      "second": "#EF3340",
+      "third": "#41748D",
+      "forth": "#000000"
+    },
     "venue": {
       "id": 4169,
       "name": "loanDepot park",
@@ -624,6 +703,12 @@
     "name": "New York Yankees",
     "link": "/api/v1/teams/147",
     "season": 2024,
+    "colors": {
+      "first": "#003087",
+      "second": "#E4002C",
+      "third": "#0C2340",
+      "forth": "#C4CED3"
+    },
     "venue": {
       "id": 3313,
       "name": "Yankee Stadium",
@@ -668,6 +753,12 @@
     "name": "Milwaukee Brewers",
     "link": "/api/v1/teams/158",
     "season": 2024,
+    "colors": {
+      "first": "#FFC52F",
+      "second": "#12284B",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 32,
       "name": "American Family Field",
@@ -712,6 +803,12 @@
     "name": "Los Angeles Angels",
     "link": "/api/v1/teams/108",
     "season": 2024,
+    "colors": {
+      "first": "#003263",
+      "second": "#BA0021",
+      "third": "#862633",
+      "forth": "#C4CED4"
+    },
     "venue": { "id": 1, "name": "Angel Stadium", "link": "/api/v1/venues/1" },
     "springVenue": { "id": 2500, "link": "/api/v1/venues/2500" },
     "teamCode": "ana",
@@ -752,6 +849,12 @@
     "name": "Arizona Diamondbacks",
     "link": "/api/v1/teams/109",
     "season": 2024,
+    "colors": {
+      "first": "#A71930",
+      "second": "#E3D4AD",
+      "third": "#000000",
+      "forth": "#30CED8"
+    },
     "venue": { "id": 15, "name": "Chase Field", "link": "/api/v1/venues/15" },
     "springVenue": { "id": 4249, "link": "/api/v1/venues/4249" },
     "teamCode": "ari",
@@ -792,6 +895,12 @@
     "name": "Baltimore Orioles",
     "link": "/api/v1/teams/110",
     "season": 2024,
+    "colors": {
+      "first": "#DF4601",
+      "second": "#000000",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 2,
       "name": "Oriole Park at Camden Yards",
@@ -836,6 +945,12 @@
     "name": "Boston Red Sox",
     "link": "/api/v1/teams/111",
     "season": 2024,
+    "colors": {
+      "first": "#BD3039",
+      "second": "#0C2340",
+      "third": "#FFFFFF",
+      "forth": ""
+    },
     "venue": { "id": 3, "name": "Fenway Park", "link": "/api/v1/venues/3" },
     "springVenue": { "id": 4309, "link": "/api/v1/venues/4309" },
     "teamCode": "bos",
@@ -876,6 +991,12 @@
     "name": "Chicago Cubs",
     "link": "/api/v1/teams/112",
     "season": 2024,
+    "colors": {
+      "first": "#0E3386",
+      "second": "#CC3433",
+      "third": "",
+      "forth": ""
+    },
     "venue": { "id": 17, "name": "Wrigley Field", "link": "/api/v1/venues/17" },
     "springVenue": { "id": 4629, "link": "/api/v1/venues/4629" },
     "teamCode": "chn",
@@ -916,6 +1037,12 @@
     "name": "Cincinnati Reds",
     "link": "/api/v1/teams/113",
     "season": 2024,
+    "colors": {
+      "first": "#C6011F",
+      "second": "#000000",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 2602,
       "name": "Great American Ball Park",
@@ -960,6 +1087,12 @@
     "name": "Cleveland Guardians",
     "link": "/api/v1/teams/114",
     "season": 2024,
+    "colors": {
+      "first": "#00385D",
+      "second": "#E50022",
+      "third": "#FFFFFF",
+      "forth": ""
+    },
     "venue": {
       "id": 5,
       "name": "Progressive Field",
@@ -1004,6 +1137,12 @@
     "name": "Colorado Rockies",
     "link": "/api/v1/teams/115",
     "season": 2024,
+    "colors": {
+      "first": "#333366",
+      "second": "#C4CED4",
+      "third": "#131413",
+      "forth": ""
+    },
     "venue": { "id": 19, "name": "Coors Field", "link": "/api/v1/venues/19" },
     "springVenue": { "id": 4249, "link": "/api/v1/venues/4249" },
     "teamCode": "col",
@@ -1044,6 +1183,12 @@
     "name": "Detroit Tigers",
     "link": "/api/v1/teams/116",
     "season": 2024,
+    "colors": {
+      "first": "#0C2340",
+      "second": "#FA4616",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 2394,
       "name": "Comerica Park",
@@ -1088,6 +1233,12 @@
     "name": "Houston Astros",
     "link": "/api/v1/teams/117",
     "season": 2024,
+    "colors": {
+      "first": "#002D62",
+      "second": "#EB6E1F",
+      "third": "#F4911E",
+      "forth": ""
+    },
     "venue": {
       "id": 2392,
       "name": "Minute Maid Park",
@@ -1132,6 +1283,12 @@
     "name": "Kansas City Royals",
     "link": "/api/v1/teams/118",
     "season": 2024,
+    "colors": {
+      "first": "#004687",
+      "second": "#BD9B60",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 7,
       "name": "Kauffman Stadium",
@@ -1177,6 +1334,12 @@
     "link": "/api/v1/teams/119",
     "logo": "../assets/logos/los-angeles-dodgers-logo.svg",
     "season": 2024,
+    "colors": {
+      "first": "#005A9C",
+      "second": "#EF3E42",
+      "third": "#A5ACAF",
+      "forth": ""
+    },
     "venue": {
       "id": 22,
       "name": "Dodger Stadium",
@@ -1221,6 +1384,12 @@
     "name": "Washington Nationals",
     "link": "/api/v1/teams/120",
     "season": 2024,
+    "colors": {
+      "first": "#AB0003",
+      "second": "#14225A",
+      "third": "#FFFFFF",
+      "forth": ""
+    },
     "venue": {
       "id": 3309,
       "name": "Nationals Park",
@@ -1265,6 +1434,12 @@
     "name": "New York Mets",
     "link": "/api/v1/teams/121",
     "season": 2024,
+    "colors": {
+      "first": "#002D72",
+      "second": "#FF5910",
+      "third": "",
+      "forth": ""
+    },
     "venue": {
       "id": 3289,
       "name": "Citi Field",

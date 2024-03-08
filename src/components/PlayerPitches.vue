@@ -72,12 +72,7 @@ function findTooltip(code: string) {
 
 function getColorScheme(currentTeamId: number) {
   var teamColors = getTeamColors(currentTeamId);
-  if (
-    currentTeamId == 133 &&
-    teamColors &&
-    "first" in teamColors &&
-    "second" in teamColors
-  ) {
+  if (teamColors && "first" in teamColors && "second" in teamColors) {
     return { background: teamColors["first"], color: teamColors["second"] };
   }
 

@@ -126,7 +126,7 @@ function findLogo(currentTeamId: number) {
 
 function getBackgroundColor(currentTeamId: number) {
   var teamColors = getTeamColors(currentTeamId);
-  if (currentTeamId == 133 && teamColors && "second" in teamColors) {
+  if (teamColors && "second" in teamColors) {
     return teamColors["second"];
   }
 
