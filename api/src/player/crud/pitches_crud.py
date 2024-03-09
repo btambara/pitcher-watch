@@ -38,12 +38,14 @@ def get_player_pitches(
         )
         from_year = mlb_debut_datetime.year
 
-        team_id = statsapi.lookup_team(player_stat_data["current_team"])[0]["id"]
-
         responses = []
-        for year in range(from_year, to_year, 1):
+        for season in range(from_year, to_year, 1):
+            team_id = statsapi.lookup_player(mlb_id, season=season).pop()[
+                "currentTeam"
+            ]["id"]
+
             responses.append(
-                {"UUID": str(request_pitches_for_year.delay(mlb_id, team_id, year))}
+                {"UUID": str(request_pitches_for_year.delay(mlb_id, team_id, season))}
             )
         return responses
     pitches.sort(key=lambda x: x.season, reverse=True)
