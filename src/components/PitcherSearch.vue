@@ -53,14 +53,13 @@ function handler(pitcher: object) {
         <v-autocomplete
           v-show="ready"
           :items="pitchers"
-          append-inner-icon="fas fa-magnifying-glass"
+          append-inner-icon=""
           auto-select-first
           class="flex-full-width"
           density="comfortable"
-          item-props
-          menu-icon=""
+          menu-icon="fas fa-baseball"
           placeholder="Search pitcher by full name"
-          prepend-inner-icon="fas fa-baseball"
+          prepend-inner-icon="fas fa-magnifying-glass"
           rounded
           theme="light"
           variant="solo"
