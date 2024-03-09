@@ -16,7 +16,7 @@ services:
     build:
       dockerfile: Dockerfile.worker
     container_name: pw-celery-worker-1
-    command: ['celery', '-A', 'proj.celery', 'worker', '-l', 'info', '--concurrency=4']
+    command: ['celery', '-A', 'proj.celery', 'worker', '-l', 'info', '--concurrency=4', '-n', 'celery-worker-1']
     depends_on:
       redis:
         condition: service_healthy
@@ -25,7 +25,7 @@ services:
     build:
       dockerfile: Dockerfile.worker
     container_name: pw-celery-worker-2
-    command: ['celery', '-A', 'proj.celery', 'worker', '-l', 'info', '--concurrency=4']
+    command: ['celery', '-A', 'proj.celery', 'worker', '-l', 'info', '--concurrency=4', '-n', 'celery-worker-2']
     depends_on:
       redis:
         condition: service_healthy
