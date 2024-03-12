@@ -84,12 +84,15 @@ function getColorScheme(currentTeamId: number) {
   <v-container>
     <v-row>
       <v-col v-show="!ready">
-        <div class="text-h5 mb-4" v-if="tasks">
-          {{ "Downloading " + (tasks.length + 1) + " seasons..." }}
+        <div class="text-h5 mb-4" v-if="tasks.length > 1">
+          {{ "Downloading " + tasks.length + " seasons..." }}
+        </div>
+        <div class="text-h5 mb-4" v-if="tasks.length == 1">
+          {{ "Downloading " + tasks.length + " season..." }}
         </div>
         <v-progress-linear
           indeterminate
-          v-show="!ready && tasks"
+          v-show="!ready && tasks && tasks.length != 0"
         ></v-progress-linear>
       </v-col>
       <v-col
