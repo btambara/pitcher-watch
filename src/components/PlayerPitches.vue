@@ -19,7 +19,6 @@ watchEffect(async () => {
     `http://localhost/api/v1/player/pitches/all/${pitcher.mlbId}?skip=0`,
   ).then(async (response) => {
     const answer = await response.json();
-
     for (var item of answer) {
       if ("UUID" in item) {
         tasks.value = answer;
@@ -84,10 +83,10 @@ function getColorScheme(currentTeamId: number) {
   <v-container>
     <v-row>
       <v-col v-show="!ready">
-        <div class="text-h5 mb-4" v-if="tasks.length > 1">
+        <div class="text-h5 mb-4" v-if="!ready && tasks && tasks.length > 1">
           {{ "Downloading " + tasks.length + " seasons..." }}
         </div>
-        <div class="text-h5 mb-4" v-if="tasks.length == 1">
+        <div class="text-h5 mb-4" v-if="!ready && tasks && tasks.length == 1">
           {{ "Downloading " + tasks.length + " season..." }}
         </div>
         <v-progress-linear

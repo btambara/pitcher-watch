@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PlayerSheet from "./PlayerSheet.vue";
 import pitchersJSON from "../assets/pitchers.json";
+import { getTeamName, getTeamLogo } from "../helpers";
 import { ref } from "vue";
 const pitchers = defineModel();
 const pitcherDialog = ref(false);
@@ -13,24 +14,18 @@ fetch(`http://localhost/api/v1/players/?position=1&skip=0`)
       .get("content-type")
       ?.includes("application/json");
     const data = isJson && (await response.json());
-    let itemPlayers: Array<{ title: string; value: object }> = [];
+    let itemPlayers: Array<Record<string, string>> = [];
     for (var player of data) {
-      itemPlayers.push({
-        title: player["full_name"] + " | " + player["primary_number"],
-        value: player,
-      });
+      itemPlayers.push(player);
     }
 
     pitchers.value = itemPlayers;
     ready.value = true;
   })
   .catch(() => {
-    let itemPlayers: Array<{ title: string; value: object }> = [];
+    let itemPlayers: Array<Record<string, string | number | object>> = [];
     for (var player of pitchersJSON) {
-      itemPlayers.push({
-        title: player["full_name"] + " | " + player["primary_number"],
-        value: player,
-      });
+      itemPlayers.push(player);
     }
     pitchers.value = itemPlayers;
     ready.value = true;
@@ -65,7 +60,29 @@ function handler(pitcher: object) {
           variant="solo"
           no-data-text="No searchable pitchers."
           v-on:update:modelValue="handler"
-        ></v-autocomplete>
+          item-title="full_name"
+          :return-object="true"
+        >
+          <template v-slot:item="{ props, item }">
+            <v-list-item
+              v-bind="props"
+              :prepend-avatar="getTeamLogo(item.raw.current_team_id)"
+              :subtitle="getTeamName(item.raw.current_team_id)['name']"
+              :title="item.raw.full_name"
+            >
+              <template #prepend>
+                <v-avatar size="35">
+                  <v-img
+                    :src="getTeamLogo(item.raw.current_team_id)"
+                    aspect-ratio="16/9"
+                    width="30"
+                    height="30"
+                  ></v-img>
+                </v-avatar>
+              </template>
+            </v-list-item>
+          </template>
+        </v-autocomplete>
       </v-col>
     </v-row>
     <v-dialog

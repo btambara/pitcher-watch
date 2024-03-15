@@ -1,9 +1,10 @@
 [
   {
+    "mlb_id": 0,
     "full_name": "Clayton Kershaw",
     "primary_number": "22",
     "primary_position_code": "1",
-    "current_team_id": "119",
+    "current_team_id": 119,
     "careerStats": {
       "gamesPlayed": 425,
       "gamesStarted": 422,

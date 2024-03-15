@@ -10,22 +10,13 @@ type Player = {
 
 const details = defineProps<Player>();
 
-function getBackgroundColor(currentTeamId: number) {
+function getBackgroundColor(currentTeamId: number): string {
   var teamColors = getTeamColors(currentTeamId);
   if (teamColors && "first" in teamColors) {
     return teamColors["first"];
   }
 
   return "primary";
-}
-
-function getLogoBackgroundColor(currentTeamId: number) {
-  var teamColors = getTeamColors(currentTeamId);
-  if (teamColors && "third" in teamColors) {
-    return teamColors["third"];
-  }
-
-  return "white";
 }
 </script>
 
@@ -37,10 +28,7 @@ function getLogoBackgroundColor(currentTeamId: number) {
   >
     <v-row align="center" justify="center">
       <v-col cols="12" align="center" justify="center">
-        <v-avatar
-          :color="getLogoBackgroundColor(details.currentTeamId)"
-          size="70"
-        >
+        <v-avatar color="white" size="70">
           <img :src="logo" height="60%" />
         </v-avatar>
       </v-col>
@@ -55,4 +43,3 @@ function getLogoBackgroundColor(currentTeamId: number) {
 </template>
 
 <style scoped></style>
-../helpers
