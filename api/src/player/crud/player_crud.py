@@ -13,20 +13,24 @@ def get_all_players(
 ):
     all_players = db.query(Player).offset(skip).limit(limit).all()
     if len(all_players) == 0:
-        for player_data in statsapi.get(
-            "sports_players", {"sportId": 1, "season": 2024}
-        )["people"]:
-            primary_number = (
-                player_data["primaryNumber"] if "primaryNumber" in player_data else -1
-            )
-            player_create = PlayerCreate(
-                mlb_id=player_data["id"],
-                full_name=player_data["fullName"],
-                primary_number=primary_number,
-                primary_position_code=player_data["primaryPosition"]["code"],
-                current_team_id=player_data["currentTeam"]["id"],
-            )
-            create_player(db, player_create)
+        for team in statsapi.get("teams", {"sportId": 1})["teams"]:
+            for player in statsapi.get(
+                "team_roster", {"teamId": team["id"], "rosterType": "40Man"}
+            )["roster"]:
+                primary_number = (
+                    player["jerseyNumber"] if player["jerseyNumber"] != "" else -1
+                )
+                print(player)
+                if "fullName" in player["person"]:
+                    player_create = PlayerCreate(
+                        mlb_id=player["person"]["id"],
+                        full_name=player["person"]["fullName"],
+                        primary_number=primary_number,
+                        primary_position_code=player["position"]["code"],
+                        current_team_id=player["parentTeamId"],
+                    )
+                    create_player(db, player_create)
+
         all_players = db.query(Player).offset(skip).limit(limit).all()
 
     if not position:
