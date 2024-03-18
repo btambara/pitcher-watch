@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PitcherSearch from "./components/PitcherSearch.vue";
+import PitcherSearch from "./views/PitcherSearch.vue";
 </script>
 
 <template>
@@ -9,3 +9,4 @@ import PitcherSearch from "./components/PitcherSearch.vue";
 </template>
 
 <style scoped></style>
+./views/PitcherSearch.vue

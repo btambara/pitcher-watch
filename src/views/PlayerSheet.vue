@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import PlayerDetails from "./PlayerDetails.vue";
-import PlayerStats from "./PlayerStats.vue";
-import PlayerPitches from "./PlayerPitches.vue";
+import PlayerDetails from "../components/PlayerDetails.vue";
+import PlayerStats from "../components/PlayerStats.vue";
+import PlayerPitches from "../components/PlayerPitches.vue";
 import positions from "../assets/positions.json";
 
 import { getTeamColors, getTeamLogo } from "../helpers";

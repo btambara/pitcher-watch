@@ -109,3 +109,4 @@ function handler(pitcher: object) {
 </template>
 
 <style scoped></style>
+./PlayerSheet.vue
