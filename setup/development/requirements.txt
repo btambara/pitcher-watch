@@ -66,6 +66,7 @@ exceptiongroup==1.2.0
     # via
     #   -r ../requirements.txt
     #   anyio
+    #   pytest
 fastapi==0.109.0
     # via -r ../requirements.txt
 filelock==3.13.1
@@ -85,6 +86,8 @@ idna==3.6
     #   -r ../requirements.txt
     #   anyio
     #   requests
+iniconfig==2.0.0
+    # via pytest
 kombu==5.3.5
     # via
     #   -r ../requirements.txt
@@ -101,8 +104,12 @@ mlb-statsapi==1.7.1
     # via -r ../requirements.txt
 nodeenv==1.8.0
     # via pre-commit
+packaging==24.0
+    # via pytest
 platformdirs==4.2.0
     # via virtualenv
+pluggy==1.4.0
+    # via pytest
 pre-commit==3.6.2
     # via -r requirements.in
 prompt-toolkit==3.0.43
@@ -119,6 +126,8 @@ pydantic-core==2.16.1
     # via
     #   -r ../requirements.txt
     #   pydantic
+pytest==8.1.1
+    # via -r requirements.in
 python-dateutil==2.8.2
     # via
     #   -r ../requirements.txt
@@ -149,6 +158,8 @@ starlette==0.35.1
     # via
     #   -r ../requirements.txt
     #   fastapi
+tomli==2.0.1
+    # via pytest
 typing-extensions==4.9.0
     # via
     #   -r ../requirements.txt
