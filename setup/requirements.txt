@@ -60,11 +60,17 @@ prompt-toolkit==3.0.43
 psycopg2-binary==2.9.9
     # via -r requirements.in
 pydantic==2.6.0
-    # via fastapi
+    # via
+    #   fastapi
+    #   pydantic-settings
 pydantic-core==2.16.1
     # via pydantic
+pydantic-settings==2.2.1
+    # via -r requirements.in
 python-dateutil==2.8.2
     # via celery
+python-dotenv==1.0.1
+    # via pydantic-settings
 redis==5.0.1
     # via celery
 requests==2.31.0

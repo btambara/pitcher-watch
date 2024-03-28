@@ -17,6 +17,7 @@ annotated-types==0.6.0
 anyio==4.2.0
     # via
     #   -r ../requirements.txt
+    #   httpx
     #   starlette
 async-timeout==4.0.3
     # via
@@ -33,6 +34,8 @@ celery[redis]==5.3.6
 certifi==2023.11.17
     # via
     #   -r ../requirements.txt
+    #   httpcore
+    #   httpx
     #   requests
 cfgv==3.4.0
     # via pre-commit
@@ -78,13 +81,19 @@ greenlet==3.0.3
 h11==0.14.0
     # via
     #   -r ../requirements.txt
+    #   httpcore
     #   uvicorn
+httpcore==1.0.4
+    # via httpx
+httpx==0.27.0
+    # via -r requirements.in
 identify==2.5.35
     # via pre-commit
 idna==3.6
     # via
     #   -r ../requirements.txt
     #   anyio
+    #   httpx
     #   requests
 iniconfig==2.0.0
     # via pytest
@@ -150,6 +159,7 @@ sniffio==1.3.0
     # via
     #   -r ../requirements.txt
     #   anyio
+    #   httpx
 sqlalchemy==2.0.25
     # via
     #   -r ../requirements.txt
