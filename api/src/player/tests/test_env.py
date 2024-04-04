@@ -1,38 +1,19 @@
 import logging
 
-from api.deps import get_db
-from app.main import app
+import pytest
+from api.deps import get_db, get_test_db
 from fastapi.testclient import TestClient
-from player.models import player
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
-
-SQLALCHEMY_DATABASE_URL = "sqlite://"
-
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
-    connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
-)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-player.Base.metadata.create_all(bind=engine)
+from main import app
 
 
-def override_get_db():
-    try:
-        db = TestingSessionLocal()
-        yield db
-    finally:
-        db.close()
+@pytest.fixture
+def test_client():
+    app.dependency_overrides[get_db] = get_test_db
+    client = TestClient(app)
+    yield client
 
 
-app.dependency_overrides[get_db] = override_get_db
-
-client = TestClient(app)
-
-
-def test_env():
+def test_env(test_client) -> None:
+    test_client.get("/api/v1/players/?skip=0")
     logging.getLogger(__name__).warning("Hi")
     assert 1 == 1

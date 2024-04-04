@@ -1,5 +1,4 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
@@ -18,6 +17,16 @@ class Player(Base):
     pitches = relationship("Pitches", back_populates="player")
 
 
+class StatType(Base):
+    __tablename__ = "stat_type"
+
+    id = Column(Integer, primary_key=True)
+    stat = Column(String)
+    value = Column(String)
+    stats_id = Column(Integer, ForeignKey("stats.id"))
+    stats = relationship("Stats", back_populates="stats")
+
+
 class Stats(Base):
     __tablename__ = "stats"
 
@@ -26,7 +35,17 @@ class Stats(Base):
     player = relationship("Player", back_populates="stats")
     season = Column(Integer)
     team_id = Column(Integer)
-    stats = Column(JSONB)
+    stats = relationship("StatType", back_populates="stats")
+
+
+class PitchType(Base):
+    __tablename__ = "pitch_type"
+
+    id = Column(Integer, primary_key=True)
+    pitch = Column(String)
+    amount = Column(Integer)
+    pitches_id = Column(Integer, ForeignKey("pitches.id"))
+    pitches = relationship("Pitches", back_populates="pitches")
 
 
 class Pitches(Base):
@@ -37,4 +56,4 @@ class Pitches(Base):
     player = relationship("Player", back_populates="pitches")
     season = Column(Integer)
     team_id = Column(Integer)
-    pitches = Column(JSONB)
+    pitches = relationship("PitchType", back_populates="pitches")

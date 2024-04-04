@@ -2,7 +2,8 @@ from typing import Dict, List
 
 import statsapi
 from celery import Task
-from db.database import SessionLocal
+
+# from db.database import SessionLocal
 from player.models.player import Pitches
 from player.schemas.pitches_schemas import PitchesCreate
 from sqlalchemy.orm import Session
@@ -14,7 +15,7 @@ class RetrievePitchesTask(Task):
     def on_success(self, retval, task_id, args, kwargs) -> None:
         pitches_create = PitchesCreate(season=args[2], team_id=args[1], pitches=retval)
 
-        create_pitches(SessionLocal(), pitches_create, args[0])
+        create_pitches(None, pitches_create, args[0])
 
 
 def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):

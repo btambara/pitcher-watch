@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post("/{mlb_id}", response_model=pitches_schemas.Pitches)
-def create_pitches(
+async def create_pitches(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
@@ -25,7 +25,7 @@ def create_pitches(
 
 
 @router.get("/{id}", response_model=pitches_schemas.Pitches)
-def read_pitches(
+async def read_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -40,7 +40,7 @@ def read_pitches(
 
 
 @router.put("/{id}", response_model=pitches_schemas.Pitches)
-def update_pitches(
+async def update_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -57,7 +57,7 @@ def update_pitches(
 
 
 @router.delete("/{id}", response_model=pitches_schemas.Pitches)
-def delete_pitches(
+async def delete_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -76,7 +76,7 @@ def delete_pitches(
     "/all/{mlb_id}",
     response_model=Union[List[pitches_schemas.Pitches], List[Dict[str, str]]],
 )
-def read_all_pitches_by_mlb_id(
+async def read_all_pitches_by_mlb_id(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
