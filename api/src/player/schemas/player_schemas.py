@@ -1,5 +1,5 @@
 from player.schemas.stats_schemas import Stats
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class PlayerBase(BaseModel):
@@ -19,8 +19,7 @@ class PlayerUpdate(PlayerBase):
 
 
 class Player(PlayerBase):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     stats: list[Stats] = []
-
-    class Config:
-        from_attributes = True

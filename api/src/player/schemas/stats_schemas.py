@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class StatsBase(BaseModel):
@@ -16,8 +16,7 @@ class StatsUpdate(StatsBase):
 
 
 class Stats(StatsBase):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     mlb_id: int
-
-    class Config:
-        from_attributes = True
