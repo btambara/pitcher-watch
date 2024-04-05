@@ -17,5 +17,4 @@ jobs:
         pip install -r setup/requirements.txt -r setup/development/requirements.txt
     - name: Test with pytest
       run: |
-        pip install pytest pytest-cov
-        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        pytest
