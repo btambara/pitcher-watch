@@ -14,5 +14,10 @@ class Settings(BaseSettings):
 
 
 @lru_cache
-def get_settings():
+def get_settings() -> Settings:
     return Settings()
+
+
+@lru_cache
+def get_settings_override() -> Settings:
+    return Settings(sqlalchemy_database_url="sqlite:///test.db", environment="TEST")

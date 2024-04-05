@@ -20,8 +20,10 @@ def get_all_players(
                 primary_number = (
                     player["jerseyNumber"] if player["jerseyNumber"] != "" else -1
                 )
-                print(player)
-                if "fullName" in player["person"]:
+                if (
+                    "fullName" in player["person"]
+                    and get_player_by_mlb_id(db, player["person"]["id"]) is None
+                ):
                     player_create = PlayerCreate(
                         mlb_id=player["person"]["id"],
                         full_name=player["person"]["fullName"],

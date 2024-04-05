@@ -1,18 +1,12 @@
-from typing import Generator
+from typing import Annotated, Generator
 
-from db.database import get_session_local, get_session_test_local
-
-
-def get_db() -> Generator:
-    db = get_session_local()
-    try:
-        yield db
-    finally:
-        db.close()
+from db.database import get_session_local
+from fastapi import Depends
+from settings.config import Settings, get_settings
 
 
-def get_test_db() -> Generator:
-    db = get_session_test_local()
+def get_db(settings: Annotated[Settings, Depends(get_settings)]) -> Generator:
+    db = get_session_local(settings)
     try:
         yield db
     finally:
