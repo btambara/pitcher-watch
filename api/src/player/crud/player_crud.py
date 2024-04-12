@@ -1,7 +1,10 @@
 import statsapi
 from player.models.player import Player
 from player.schemas.player_schemas import PlayerCreate, PlayerUpdate
+from settings.config import get_settings
 from sqlalchemy.orm import Session
+
+settings = get_settings()
 
 
 def get_player(db: Session, id: int):
@@ -12,7 +15,8 @@ def get_all_players(
     db: Session, position: str | None = None, skip: int = 0, limit: int = 100
 ):
     all_players = db.query(Player).offset(skip).limit(limit).all()
-    if len(all_players) == 0:
+
+    if len(all_players) == 0 and settings.environment != "TEST":
         for team in statsapi.get("teams", {"sportId": 1})["teams"]:
             for player in statsapi.get(
                 "team_roster", {"teamId": team["id"], "rosterType": "40Man"}
@@ -47,7 +51,7 @@ def get_all_players(
         )
 
 
-def get_player_by_mlb_id(db: Session, mlb_id: int):
+def get_player_by_mlb_id(db: Session, mlb_id: int) -> Player:
     return db.query(Player).filter(Player.mlb_id == mlb_id).first()
 
 
