@@ -4,7 +4,7 @@ from sqlalchemy.orm import declarative_base, relationship
 Base = declarative_base()
 
 
-class Player(Base):
+class Player(Base):  # type:ignore[valid-type, misc]
     __tablename__ = "players"
 
     id = Column(Integer, primary_key=True)
@@ -17,7 +17,7 @@ class Player(Base):
     pitches = relationship("Pitches", back_populates="player")
 
 
-class StatType(Base):
+class StatType(Base):  # type:ignore[valid-type, misc]
     __tablename__ = "stat_type"
 
     id = Column(Integer, primary_key=True)
@@ -27,7 +27,7 @@ class StatType(Base):
     stats = relationship("Stats", back_populates="stats")
 
 
-class Stats(Base):
+class Stats(Base):  # type:ignore[valid-type, misc]
     __tablename__ = "stats"
 
     id = Column(Integer, primary_key=True)
@@ -38,7 +38,7 @@ class Stats(Base):
     stats = relationship("StatType", back_populates="stats")
 
 
-class PitchType(Base):
+class PitchType(Base):  # type:ignore[valid-type, misc]
     __tablename__ = "pitch_type"
 
     id = Column(Integer, primary_key=True)
@@ -48,7 +48,7 @@ class PitchType(Base):
     pitches = relationship("Pitches", back_populates="pitches")
 
 
-class Pitches(Base):
+class Pitches(Base):  # type:ignore[valid-type, misc]
     __tablename__ = "pitches"
 
     id = Column(Integer, primary_key=True)

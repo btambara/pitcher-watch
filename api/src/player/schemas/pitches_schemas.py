@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class PitchTypeBase(BaseModel):
+class PitchTypeBase(BaseModel):  # type:ignore[misc]
     pitch: str
     amount: int
 
@@ -21,7 +21,7 @@ class PitchType(PitchTypeBase):
     pitches_id: int
 
 
-class PitchesBase(BaseModel):
+class PitchesBase(BaseModel):  # type:ignore[misc]
     season: int
     team_id: int
 

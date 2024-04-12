@@ -12,11 +12,11 @@ from sqlalchemy.orm import Session
 
 
 def get_stats(db: Session, id: int) -> Optional[Stats]:
-    return db.query(Stats).filter(Stats.id == id).first()
+    return db.query(Stats).filter(Stats.id == id).first()  # type: ignore[no-any-return]
 
 
 def get_player_stats(
-    db: Session, mlb_id: int | None = None, skip: int = 0, limit: int = 100
+    db: Session, mlb_id: int, skip: int = 0, limit: int = 100
 ) -> List[Stats]:
     player_stats = (
         db.query(Stats).filter(Stats.mlb_id == mlb_id).offset(skip).limit(limit).all()
@@ -54,7 +54,7 @@ def get_player_stats(
             .all()
         )
     player_stats.sort(key=lambda x: x.season, reverse=True)
-    return player_stats
+    return player_stats  # type: ignore[no-any-return]
 
 
 def create_stats(db: Session, stats: StatsCreate, mlb_id: int) -> Stats:
@@ -70,7 +70,7 @@ def remove_stats(db: Session, id: int) -> Optional[Stats]:
     db_player = db.query(Stats).filter(Stats.id == id).first()
     db.delete(db_player)
     db.commit()
-    return db_player
+    return db_player  # type: ignore[no-any-return]
 
 
 def update_stats(db: Session, id: int, stats_in: StatsUpdate) -> Optional[Stats]:
@@ -83,7 +83,7 @@ def update_stats(db: Session, id: int, stats_in: StatsUpdate) -> Optional[Stats]
     db.add(db_stats)
     db.commit()
     db.refresh(db_stats)
-    return db_stats
+    return db_stats  # type: ignore[no-any-return]
 
 
 def create_stat_type(db: Session, stat_type: StatTypeCreate, stats_id: int) -> StatType:
@@ -101,7 +101,7 @@ def remove_stat_type(db: Session, id: int) -> Optional[StatType]:
     db_stat_type = db.query(Stats).filter(StatType.id == id).first()
     db.delete(db_stat_type)
     db.commit()
-    return db_stat_type
+    return db_stat_type  # type: ignore[no-any-return]
 
 
 def update_stat_type(
@@ -115,4 +115,4 @@ def update_stat_type(
     db.add(db_stat_type)
     db.commit()
     db.refresh(db_stat_type)
-    return db_stat_type
+    return db_stat_type  # type: ignore[no-any-return]

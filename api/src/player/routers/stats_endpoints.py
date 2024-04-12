@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from api.deps import get_db
 from fastapi import APIRouter, Depends, HTTPException
@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 
 
-@router.post("/{mlb_id}", response_model=stats_schemas.Stats)
+@router.post("/{mlb_id}", response_model=stats_schemas.Stats)  # type: ignore[misc]
 async def create_stats(
     *,
     db: Session = Depends(get_db),
@@ -24,7 +24,7 @@ async def create_stats(
     return stats
 
 
-@router.get("/{id}", response_model=stats_schemas.Stats)
+@router.get("/{id}", response_model=stats_schemas.Stats)  # type: ignore[misc]
 async def read_stats(
     *,
     db: Session = Depends(get_db),
@@ -39,13 +39,13 @@ async def read_stats(
     return stats
 
 
-@router.put("/{id}", response_model=stats_schemas.Stats)
+@router.put("/{id}", response_model=stats_schemas.Stats)  # type: ignore[misc]
 async def update_stats(
     *,
     db: Session = Depends(get_db),
     id: int,
     stats_in: stats_schemas.StatsUpdate,
-) -> Stats:
+) -> Optional[Stats]:
     """
     Update stats by ID.
     """
@@ -56,12 +56,12 @@ async def update_stats(
     return stats
 
 
-@router.delete("/{id}", response_model=stats_schemas.Stats)
+@router.delete("/{id}", response_model=stats_schemas.Stats)  # type: ignore[misc]
 async def delete_stats(
     *,
     db: Session = Depends(get_db),
     id: int,
-) -> Stats:
+) -> Optional[Stats]:
     """
     Delete stats by ID.
     """
@@ -72,13 +72,13 @@ async def delete_stats(
     return stats
 
 
-@router.get("/all/{mlb_id}", response_model=list[stats_schemas.Stats])
+@router.get("/all/{mlb_id}", response_model=list[stats_schemas.Stats])  # type: ignore[misc]
 async def read_all_stats_by_mlb_id(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
     skip: int = 0,
-    limit: int | None = None,
+    limit: int = 100,
 ) -> List[Stats]:
     """
     Get stats for player.

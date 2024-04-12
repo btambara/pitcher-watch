@@ -1,3 +1,5 @@
+from typing import List, Optional
+
 import statsapi
 from player.models.player import Player
 from player.schemas.player_schemas import PlayerCreate, PlayerUpdate
@@ -7,13 +9,13 @@ from sqlalchemy.orm import Session
 settings = get_settings()
 
 
-def get_player(db: Session, id: int):
-    return db.query(Player).filter(Player.id == id).first()
+def get_player(db: Session, id: int) -> Optional[Player]:
+    return db.query(Player).filter(Player.id == id).first()  # type: ignore[no-any-return]
 
 
 def get_all_players(
     db: Session, position: str | None = None, skip: int = 0, limit: int = 100
-):
+) -> List[Player]:
     all_players = db.query(Player).offset(skip).limit(limit).all()
 
     if len(all_players) == 0 and settings.environment != "TEST":
@@ -40,9 +42,9 @@ def get_all_players(
         all_players = db.query(Player).offset(skip).limit(limit).all()
 
     if not position:
-        return all_players
+        return all_players  # type: ignore[no-any-return]
     else:
-        return (
+        return (  # type: ignore[no-any-return]
             db.query(Player)
             .filter(Player.primary_position_code == position)
             .offset(skip)
@@ -51,19 +53,19 @@ def get_all_players(
         )
 
 
-def get_player_by_mlb_id(db: Session, mlb_id: int) -> Player:
-    return db.query(Player).filter(Player.mlb_id == mlb_id).first()
+def get_player_by_mlb_id(db: Session, mlb_id: int) -> Optional[Player]:
+    return db.query(Player).filter(Player.mlb_id == mlb_id).first()  # type: ignore[no-any-return]
 
 
-def get_player_by_full_name(db: Session, full_name: str):
-    return db.query(Player).filter(Player.full_name == full_name).first()
+def get_player_by_full_name(db: Session, full_name: str) -> Optional[Player]:
+    return db.query(Player).filter(Player.full_name == full_name).first()  # type: ignore[no-any-return]
 
 
-def get_player_by_primary_number(db: Session, primary_number: int):
-    return db.query(Player).filter(Player.primary_number == primary_number).first()
+def get_player_by_primary_number(db: Session, primary_number: int) -> Optional[Player]:
+    return db.query(Player).filter(Player.primary_number == primary_number).first()  # type: ignore[no-any-return]
 
 
-def create_player(db: Session, player: PlayerCreate):
+def create_player(db: Session, player: PlayerCreate) -> Player:
     db_player = Player(
         mlb_id=player.mlb_id,
         full_name=player.full_name,
@@ -78,14 +80,14 @@ def create_player(db: Session, player: PlayerCreate):
     return db_player
 
 
-def remove_player(db: Session, id: int):
+def remove_player(db: Session, id: int) -> Optional[Player]:
     db_player = db.query(Player).filter(Player.id == id).first()
     db.delete(db_player)
     db.commit()
-    return db_player
+    return db_player  # type: ignore[no-any-return]
 
 
-def update_player(db: Session, id: int, player_in: PlayerUpdate):
+def update_player(db: Session, id: int, player_in: PlayerUpdate) -> Optional[Player]:
     db_player = db.query(Player).filter(Player.id == id).first()
     db_player.mlb_id = player_in.mlb_id
     db_player.full_name = player_in.full_name
@@ -94,4 +96,4 @@ def update_player(db: Session, id: int, player_in: PlayerUpdate):
     db.add(db_player)
     db.commit()
     db.refresh(db_player)
-    return db_player
+    return db_player  # type: ignore[no-any-return]

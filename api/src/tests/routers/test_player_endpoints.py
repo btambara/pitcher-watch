@@ -1,6 +1,8 @@
 import logging
 import random
 
+from fastapi.testclient import TestClient
+
 random_mlb_id = random.randint(100000, 999999)
 
 test_player = {
@@ -12,7 +14,7 @@ test_player = {
 }
 
 
-def test_create_player_endpoint(test_client) -> None:
+def test_create_player_endpoint(test_client: TestClient) -> None:
     response = test_client.post(
         "/api/v1/players/",
         json=test_player,
@@ -31,7 +33,7 @@ def test_create_player_endpoint(test_client) -> None:
     assert response_json["stats"] == []
 
 
-def test_get_player_by_mlb_id_endpoint(test_client) -> None:
+def test_get_player_by_mlb_id_endpoint(test_client: TestClient) -> None:
     response = test_client.get("/api/v1/players/mlb/" + str(random_mlb_id))
 
     assert response.status_code == 200
@@ -47,7 +49,7 @@ def test_get_player_by_mlb_id_endpoint(test_client) -> None:
     assert response_json["stats"] == []
 
 
-def test_get_player_by_full_name_endpoint(test_client) -> None:
+def test_get_player_by_full_name_endpoint(test_client: TestClient) -> None:
     response = test_client.get("/api/v1/players/name/" + str(test_player["full_name"]))
 
     assert response.status_code == 200
@@ -64,7 +66,7 @@ def test_get_player_by_full_name_endpoint(test_client) -> None:
     assert response_json["stats"] == []
 
 
-def test_get_player_by_primary_number_endpoint(test_client) -> None:
+def test_get_player_by_primary_number_endpoint(test_client: TestClient) -> None:
     response = test_client.get(
         "/api/v1/players/number/" + str(test_player["primary_number"])
     )
@@ -82,7 +84,7 @@ def test_get_player_by_primary_number_endpoint(test_client) -> None:
     assert response_json["stats"] == []
 
 
-def test_update_player_endpoint(test_client) -> None:
+def test_update_player_endpoint(test_client: TestClient) -> None:
     update_test_player = test_player.copy()
     update_test_player["full_name"] = "New Test Name"
 
@@ -102,7 +104,7 @@ def test_update_player_endpoint(test_client) -> None:
     assert response_json["stats"] == []
 
 
-def test_delete_player_endpoint(test_client) -> None:
+def test_delete_player_endpoint(test_client: TestClient) -> None:
     response = test_client.delete("/api/v1/players/1")
 
     assert response.status_code == 200
