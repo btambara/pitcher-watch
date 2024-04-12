@@ -6,12 +6,12 @@ on:
         branches: [main]
 
 jobs:
-    build:
+    vitest:
         runs-on: ubuntu-latest
 
         strategy:
             matrix:
-                node-version: [23.x]
+                node-version: [21.x]
     # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
         steps:
