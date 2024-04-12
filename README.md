@@ -15,7 +15,7 @@ pip-sync setup/requirements.txt setup/development/requirements.txt
 
 ``` bash
 // Fixes all issues
-pre-commit run --hook-stage manual
+bash scripts/pre-commit-fix.sh
 ```
 
 ## [SQLAlchemy](https://www.sqlalchemy.org/)
