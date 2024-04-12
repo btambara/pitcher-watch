@@ -1,3 +1,3 @@
 #!bin/bash
 
-pre-commit run --hook-stage manual
+pre-commit run --all-files --hook-stage manual

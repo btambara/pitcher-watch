@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 
 
-@router.get("/", response_model=Dict[str, bool])
+@router.get("/", response_model=Dict[str, bool])  # type: ignore[misc]
 async def check_celery_task(
     *,
     db: Session = Depends(get_db),

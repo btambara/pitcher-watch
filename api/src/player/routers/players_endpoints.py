@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from api.deps import get_db
 from fastapi import APIRouter, Depends, HTTPException
@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 
 
-@router.post("/", response_model=player_schemas.Player)
+@router.post("/", response_model=player_schemas.Player)  # type: ignore[misc]
 async def create_player(
     *,
     db: Session = Depends(get_db),
@@ -23,7 +23,7 @@ async def create_player(
     return player
 
 
-@router.get("/{id}", response_model=player_schemas.Player)
+@router.get("/{id}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def read_player(
     *,
     db: Session = Depends(get_db),
@@ -38,7 +38,7 @@ async def read_player(
     return player
 
 
-@router.get("/name/{full_name}", response_model=player_schemas.Player)
+@router.get("/name/{full_name}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def read_player_by_fullname(
     *,
     db: Session = Depends(get_db),
@@ -53,11 +53,11 @@ async def read_player_by_fullname(
     return player
 
 
-@router.get("/mlb/{mlb_id}", response_model=player_schemas.Player)
+@router.get("/mlb/{mlb_id}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def read_player_by_mlb_id(
     *,
     db: Session = Depends(get_db),
-    mlb_id: str,
+    mlb_id: int,
 ) -> Player:
     """
     Get player by MLB id.
@@ -68,11 +68,11 @@ async def read_player_by_mlb_id(
     return player
 
 
-@router.get("/number/{primary_number}", response_model=player_schemas.Player)
+@router.get("/number/{primary_number}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def read_player_by_primary_number(
     *,
     db: Session = Depends(get_db),
-    primary_number: str,
+    primary_number: int,
 ) -> Player:
     """
     Get player by primary number.
@@ -85,13 +85,13 @@ async def read_player_by_primary_number(
     return player
 
 
-@router.put("/{id}", response_model=player_schemas.Player)
+@router.put("/{id}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def update_player(
     *,
     db: Session = Depends(get_db),
     id: int,
     player_in: player_schemas.PlayerUpdate,
-) -> Player:
+) -> Optional[Player]:
     """
     Update an player.
     """
@@ -102,12 +102,12 @@ async def update_player(
     return player
 
 
-@router.delete("/{id}", response_model=player_schemas.Player)
+@router.delete("/{id}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def delete_player(
     *,
     db: Session = Depends(get_db),
     id: int,
-) -> Player:
+) -> Optional[Player]:
     """
     Delete an player.
     """
@@ -118,13 +118,13 @@ async def delete_player(
     return player
 
 
-@router.get("/", response_model=list[player_schemas.Player])
+@router.get("/", response_model=list[player_schemas.Player])  # type: ignore[misc]
 async def read_all_players(
     *,
     db: Session = Depends(get_db),
     position: str | None = None,
     skip: int = 0,
-    limit: int | None = None,
+    limit: int = 100,
 ) -> List[Player]:
     """
     Get all players.

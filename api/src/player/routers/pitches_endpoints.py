@@ -1,4 +1,4 @@
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
 from api.deps import get_db
 from fastapi import APIRouter, Depends, HTTPException
@@ -10,13 +10,13 @@ from sqlalchemy.orm import Session
 router = APIRouter()
 
 
-@router.post("/{mlb_id}", response_model=pitches_schemas.Pitches)
+@router.post("/{mlb_id}", response_model=pitches_schemas.Pitches)  # type: ignore[misc]
 async def create_pitches(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
     pitches: pitches_schemas.PitchesCreate,
-) -> Pitches:
+) -> Optional[Pitches]:
     """
     Create new set of pitches for a player.
     """
@@ -24,7 +24,7 @@ async def create_pitches(
     return pitches_created
 
 
-@router.get("/{id}", response_model=pitches_schemas.Pitches)
+@router.get("/{id}", response_model=pitches_schemas.Pitches)  # type: ignore[misc]
 async def read_pitches(
     *,
     db: Session = Depends(get_db),
@@ -39,13 +39,13 @@ async def read_pitches(
     return pitches
 
 
-@router.put("/{id}", response_model=pitches_schemas.Pitches)
+@router.put("/{id}", response_model=pitches_schemas.Pitches)  # type: ignore[misc]
 async def update_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
     pitches_in: pitches_schemas.PitchesUpdate,
-) -> Pitches:
+) -> Optional[Pitches]:
     """
     Update pitches by ID.
     """
@@ -56,12 +56,12 @@ async def update_pitches(
     return pitches
 
 
-@router.delete("/{id}", response_model=pitches_schemas.Pitches)
+@router.delete("/{id}", response_model=pitches_schemas.Pitches)  # type: ignore[misc]
 async def delete_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
-) -> Pitches:
+) -> Optional[Pitches]:
     """
     Delete pitches by ID.
     """
@@ -72,7 +72,7 @@ async def delete_pitches(
     return pitches
 
 
-@router.get(
+@router.get(  # type: ignore[misc]
     "/all/{mlb_id}",
     response_model=Union[List[pitches_schemas.Pitches], List[Dict[str, str]]],
 )
@@ -81,7 +81,7 @@ async def read_all_pitches_by_mlb_id(
     db: Session = Depends(get_db),
     mlb_id: int,
     skip: int = 0,
-    limit: int | None = None,
+    limit: int = 100,
 ) -> Union[List[Pitches], List[Dict[str, str]]]:
     """
     Get pitches for player or returns a list of celery task IDs.
@@ -89,7 +89,7 @@ async def read_all_pitches_by_mlb_id(
     return pitches_crud.get_player_pitches(db=db, mlb_id=mlb_id, skip=skip, limit=limit)
 
 
-@router.post("/pitch_type/{id}", response_model=pitches_schemas.PitchType)
+@router.post("/pitch_type/{id}", response_model=pitches_schemas.PitchType)  # type: ignore[misc]
 async def create_pitch_type(
     *,
     db: Session = Depends(get_db),
@@ -105,7 +105,7 @@ async def create_pitch_type(
     return pitch_type_created
 
 
-@router.get("/pitch_type/{id}", response_model=pitches_schemas.PitchType)
+@router.get("/pitch_type/{id}", response_model=pitches_schemas.PitchType)  # type: ignore[misc]
 async def read_pitch_types(
     *,
     db: Session = Depends(get_db),

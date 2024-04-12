@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class CeleryTasksBase(BaseModel):
+class CeleryTasksBase(BaseModel):  # type:ignore[misc]
     pass
 
 

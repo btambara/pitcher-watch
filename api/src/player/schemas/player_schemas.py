@@ -2,7 +2,7 @@ from player.schemas.stats_schemas import Stats
 from pydantic import BaseModel, ConfigDict
 
 
-class PlayerBase(BaseModel):
+class PlayerBase(BaseModel):  # type: ignore [misc]
     mlb_id: int
     full_name: str
     primary_number: int

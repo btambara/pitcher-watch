@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
 
-class StatTypeBase(BaseModel):
+class StatTypeBase(BaseModel):  # type:ignore[misc]
     stat: str
     value: str
 
@@ -21,7 +21,7 @@ class StatType(StatTypeBase):
     stats_id: int
 
 
-class StatsBase(BaseModel):
+class StatsBase(BaseModel):  # type:ignore[misc]
     season: int
     team_id: int
 
