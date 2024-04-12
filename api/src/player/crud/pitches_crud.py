@@ -1,8 +1,8 @@
 from datetime import datetime
 
 import statsapi
-from player.models.player import Pitches
-from player.schemas.pitches_schemas import PitchesCreate, PitchesUpdate
+from player.models.player import Pitches, PitchType
+from player.schemas.pitches_schemas import PitchesCreate, PitchesUpdate, PitchTypeCreate
 from proj.tasks import request_pitches_for_year
 from sqlalchemy.orm import Session
 
@@ -57,7 +57,6 @@ def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
         mlb_id=mlb_id,
         season=pitches.season,
         team_id=pitches.team_id,
-        pitches=pitches.pitches,
     )
 
     db.add(db_pitches)
@@ -84,3 +83,37 @@ def update_pitches(db: Session, id: int, pitches_in: PitchesUpdate):
     db.commit()
     db.refresh(db_pitches)
     return db_pitches
+
+
+def create_pitch_type(db: Session, pitch_type: PitchTypeCreate, pitches_id: int):
+    db_pitch_type = PitchType(
+        pitch=pitch_type.pitch, amount=pitch_type.amount, pitches_id=pitches_id
+    )
+
+    db.add(db_pitch_type)
+    db.commit()
+    db.refresh(db_pitch_type)
+    return db_pitch_type
+
+
+def get_pitch_type(db: Session, id: int):
+    return db.query(PitchType).filter(PitchType.id == id).first()
+
+
+def update_pitch_type(db: Session, id: int, pitch_type_in: PitchesUpdate):
+    db_pitch_type = db.query(PitchType).filter(PitchType.id == id).first()
+    db_pitch_type.pitch = pitch_type_in.pitch
+    db_pitch_type.amount = pitch_type_in.amount
+    db_pitch_type.pitches_id = pitch_type_in.pitches_id
+
+    db.add(db_pitch_type)
+    db.commit()
+    db.refresh(db_pitch_type)
+    return db_pitch_type
+
+
+def remove_pitch_type(db: Session, id: int):
+    db_pitch_type = db.query(PitchType).filter(PitchType.id == id).first()
+    db.delete(db_pitch_type)
+    db.commit()
+    return db_pitch_type
