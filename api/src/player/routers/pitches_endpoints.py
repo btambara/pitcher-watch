@@ -3,7 +3,7 @@ from typing import Dict, List, Union
 from api.deps import get_db
 from fastapi import APIRouter, Depends, HTTPException
 from player.crud import pitches_crud
-from player.models.player import Pitches
+from player.models.player import Pitches, PitchType
 from player.schemas import pitches_schemas
 from sqlalchemy.orm import Session
 
@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post("/{mlb_id}", response_model=pitches_schemas.Pitches)
-def create_pitches(
+async def create_pitches(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
@@ -25,7 +25,7 @@ def create_pitches(
 
 
 @router.get("/{id}", response_model=pitches_schemas.Pitches)
-def read_pitches(
+async def read_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -40,7 +40,7 @@ def read_pitches(
 
 
 @router.put("/{id}", response_model=pitches_schemas.Pitches)
-def update_pitches(
+async def update_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -57,7 +57,7 @@ def update_pitches(
 
 
 @router.delete("/{id}", response_model=pitches_schemas.Pitches)
-def delete_pitches(
+async def delete_pitches(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -76,7 +76,7 @@ def delete_pitches(
     "/all/{mlb_id}",
     response_model=Union[List[pitches_schemas.Pitches], List[Dict[str, str]]],
 )
-def read_all_pitches_by_mlb_id(
+async def read_all_pitches_by_mlb_id(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
@@ -87,3 +87,34 @@ def read_all_pitches_by_mlb_id(
     Get pitches for player or returns a list of celery task IDs.
     """
     return pitches_crud.get_player_pitches(db=db, mlb_id=mlb_id, skip=skip, limit=limit)
+
+
+@router.post("/pitch_type/{id}", response_model=pitches_schemas.PitchType)
+async def create_pitch_type(
+    *,
+    db: Session = Depends(get_db),
+    id: int,
+    pitch_type: pitches_schemas.PitchTypeCreate,
+) -> PitchType:
+    """
+    Create a pitch type.
+    """
+    pitch_type_created = pitches_crud.create_pitch_type(
+        db=db, pitch_type=pitch_type, pitches_id=id
+    )
+    return pitch_type_created
+
+
+@router.get("/pitch_type/{id}", response_model=pitches_schemas.PitchType)
+async def read_pitch_types(
+    *,
+    db: Session = Depends(get_db),
+    id: int,
+) -> Pitches:
+    """
+    Get pitch types by ID.
+    """
+    pitches = pitches_crud.get_pitch_type(db=db, id=id)
+    if not pitches:
+        raise HTTPException(status_code=404, detail="Pitch type not found.")
+    return pitches

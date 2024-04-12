@@ -6,3 +6,5 @@ alembic
 psycopg2-binary
 celery
 celery[redis]
+pydantic-settings
+httpx

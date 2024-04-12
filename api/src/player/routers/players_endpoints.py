@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post("/", response_model=player_schemas.Player)
-def create_player(
+async def create_player(
     *,
     db: Session = Depends(get_db),
     player: player_schemas.PlayerCreate,
@@ -24,7 +24,7 @@ def create_player(
 
 
 @router.get("/{id}", response_model=player_schemas.Player)
-def read_player(
+async def read_player(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -39,7 +39,7 @@ def read_player(
 
 
 @router.get("/name/{full_name}", response_model=player_schemas.Player)
-def read_player_by_fullname(
+async def read_player_by_fullname(
     *,
     db: Session = Depends(get_db),
     full_name: str,
@@ -54,7 +54,7 @@ def read_player_by_fullname(
 
 
 @router.get("/mlb/{mlb_id}", response_model=player_schemas.Player)
-def read_player_by_mlb_id(
+async def read_player_by_mlb_id(
     *,
     db: Session = Depends(get_db),
     mlb_id: str,
@@ -69,7 +69,7 @@ def read_player_by_mlb_id(
 
 
 @router.get("/number/{primary_number}", response_model=player_schemas.Player)
-def read_player_by_primary_number(
+async def read_player_by_primary_number(
     *,
     db: Session = Depends(get_db),
     primary_number: str,
@@ -86,7 +86,7 @@ def read_player_by_primary_number(
 
 
 @router.put("/{id}", response_model=player_schemas.Player)
-def update_player(
+async def update_player(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -103,7 +103,7 @@ def update_player(
 
 
 @router.delete("/{id}", response_model=player_schemas.Player)
-def delete_player(
+async def delete_player(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -119,7 +119,7 @@ def delete_player(
 
 
 @router.get("/", response_model=list[player_schemas.Player])
-def read_all_players(
+async def read_all_players(
     *,
     db: Session = Depends(get_db),
     position: str | None = None,

@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post("/{mlb_id}", response_model=stats_schemas.Stats)
-def create_stats(
+async def create_stats(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,
@@ -25,7 +25,7 @@ def create_stats(
 
 
 @router.get("/{id}", response_model=stats_schemas.Stats)
-def read_stats(
+async def read_stats(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -40,7 +40,7 @@ def read_stats(
 
 
 @router.put("/{id}", response_model=stats_schemas.Stats)
-def update_stats(
+async def update_stats(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -57,7 +57,7 @@ def update_stats(
 
 
 @router.delete("/{id}", response_model=stats_schemas.Stats)
-def delete_stats(
+async def delete_stats(
     *,
     db: Session = Depends(get_db),
     id: int,
@@ -73,7 +73,7 @@ def delete_stats(
 
 
 @router.get("/all/{mlb_id}", response_model=list[stats_schemas.Stats])
-def read_all_stats_by_mlb_id(
+async def read_all_stats_by_mlb_id(
     *,
     db: Session = Depends(get_db),
     mlb_id: int,

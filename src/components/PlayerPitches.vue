@@ -113,12 +113,12 @@ function getColorScheme(currentTeamId: number) {
               <th
                 class="text-center"
                 v-for="pitchStat in pitch.pitches"
-                :key="pitchStat.code"
+                :key="pitchStat.pitch"
               >
-                <v-tooltip :text="findTooltip(pitchStat.code)" location="top">
+                <v-tooltip :text="findTooltip(pitchStat.pitch)" location="top">
                   <template v-slot:activator="{ props }">
                     <v-btn variant="plain" v-bind="props">{{
-                      pitchStat.code
+                      pitchStat.pitch
                     }}</v-btn>
                   </template>
                 </v-tooltip>

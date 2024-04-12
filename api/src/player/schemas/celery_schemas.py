@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class CeleryTasksBase(BaseModel):
@@ -6,7 +6,6 @@ class CeleryTasksBase(BaseModel):
 
 
 class CeleryTasks(CeleryTasksBase):
-    id: str
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        from_attributes = True
+    id: str

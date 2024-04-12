@@ -1,34 +1,27 @@
 from typing import Dict, List
 
+# from db.database import SessionLocal
+import httpx
 import statsapi
 from celery import Task
-from db.database import SessionLocal
-from player.models.player import Pitches
-from player.schemas.pitches_schemas import PitchesCreate
-from sqlalchemy.orm import Session
 
 from .celery import app
 
 
 class RetrievePitchesTask(Task):
     def on_success(self, retval, task_id, args, kwargs) -> None:
-        pitches_create = PitchesCreate(season=args[2], team_id=args[1], pitches=retval)
+        response = httpx.post(
+            "http://api:8393/api/v1/player/pitches/" + str(args[0]),
+            json={"season": int(args[2]), "team_id": int(args[1])},
+        )
+        response_json = response.json()
 
-        create_pitches(SessionLocal(), pitches_create, args[0])
-
-
-def create_pitches(db: Session, pitches: PitchesCreate, mlb_id: int):
-    db_pitches = Pitches(
-        mlb_id=mlb_id,
-        season=pitches.season,
-        team_id=pitches.team_id,
-        pitches=pitches.pitches,
-    )
-
-    db.add(db_pitches)
-    db.commit()
-    db.refresh(db_pitches)
-    return db_pitches
+        for pitch in retval:
+            response = httpx.post(
+                "http://api:8393/api/v1/player/pitches/pitch_type/"
+                + str(response_json["id"]),
+                json={"pitch": pitch["code"], "amount": int(pitch["amount"])},
+            )
 
 
 @app.task(base=RetrievePitchesTask)

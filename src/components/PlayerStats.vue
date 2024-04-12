@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import CareerTable from "./CareerTable.vue";
-import CareerStats from "./CareerTable.vue";
 import SeasonTable from "./SeasonTable.vue";
 import pitchers from "../assets/pitchers.json";
 import { watchEffect, ref } from "vue";
 
 const stats = ref();
-const career = ref(CareerStats);
+const career = ref();
 const season = ref();
 const ready = ref(false);
 const pitcher = defineProps({
@@ -22,8 +21,17 @@ watchEffect(async () => {
       let seasonStats = [];
       for (var stat of stats.value) {
         if (stat["season"] == -1 && stat["team_id"] == -1) {
-          career.value = stat;
+          const careerInfo: Record<string, string> = {};
+          for (var careerStat of stat.stats) {
+            careerInfo[careerStat.stat] = careerStat.value.toString();
+          }
+          career.value = careerInfo;
         } else {
+          const seasonInfo: Record<string, string> = {};
+          for (var seasonStat of stat.stats) {
+            seasonInfo[seasonStat.stat] = seasonStat.value.toString();
+          }
+          stat.stats = seasonInfo;
           seasonStats.push(stat);
         }
       }
@@ -47,7 +55,7 @@ watchEffect(async () => {
             type="table-tbody"
             v-show="!ready"
           ></v-skeleton-loader>
-          <CareerTable :stats="career['stats']" v-show="ready" />
+          <CareerTable :stats="career" v-show="ready" />
         </v-col>
       </v-row>
       <v-row>

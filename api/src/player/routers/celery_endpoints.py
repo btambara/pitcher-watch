@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=Dict[str, bool])
-def check_celery_task(
+async def check_celery_task(
     *,
     db: Session = Depends(get_db),
     id: str,

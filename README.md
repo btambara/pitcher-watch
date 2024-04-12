@@ -17,3 +17,10 @@ pip-sync setup/requirements.txt setup/development/requirements.txt
 // Fixes all issues
 pre-commit run --hook-stage manual
 ```
+
+## [SQLAlchemy](https://www.sqlalchemy.org/)
+
+``` bash
+// Manual migrations run
+alembic revision -m "Create player table"
+```

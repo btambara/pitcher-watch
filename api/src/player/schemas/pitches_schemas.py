@@ -1,10 +1,29 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+
+
+class PitchTypeBase(BaseModel):
+    pitch: str
+    amount: int
+
+
+class PitchTypeCreate(PitchTypeBase):
+    pass
+
+
+class PitchTypeUpdate(PitchTypeBase):
+    pass
+
+
+class PitchType(PitchTypeBase):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    pitches_id: int
 
 
 class PitchesBase(BaseModel):
     season: int
     team_id: int
-    pitches: list[dict]
 
 
 class PitchesCreate(PitchesBase):
@@ -16,8 +35,8 @@ class PitchesUpdate(PitchesBase):
 
 
 class Pitches(PitchesBase):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     mlb_id: int
-
-    class Config:
-        from_attributes = True
+    pitches: list[PitchType] = []

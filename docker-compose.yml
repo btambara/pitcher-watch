@@ -50,6 +50,8 @@ services:
     build:
       dockerfile: Dockerfile.api
     container_name: pw-api
+    env_file:
+      - .env
     depends_on:
       db:
         condition: service_healthy
