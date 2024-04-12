@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { getTeamColors, getTeamName, getTeamLogo } from "../../helpers/index";
+import { getTeamColors, getTeamName, getTeamLogo } from "../index";
 
 test("test getTeamColors", () => {
   const expected = {
