@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+from jose.constants import ALGORITHMS
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -14,6 +15,7 @@ class Settings(BaseSettings):  # type:ignore[misc]
 
     secret_key: str = Field()
     access_token_expire_minutes: int = Field()
+    algorithm: str = Field(ALGORITHMS.HS256)
 
 
 @lru_cache
