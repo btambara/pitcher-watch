@@ -12,6 +12,9 @@ class Settings(BaseSettings):  # type:ignore[misc]
     postgres_password: str = Field()
     environment: str = Field()
 
+    secret_key: str = Field()
+    access_token_expire_minutes: int = Field()
+
 
 @lru_cache
 def get_settings() -> Settings:

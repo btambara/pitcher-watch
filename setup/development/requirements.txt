@@ -23,6 +23,8 @@ async-timeout==4.0.3
     # via
     #   -r ../requirements.txt
     #   redis
+bcrypt==4.1.2
+    # via -r ../requirements.txt
 billiard==4.2.0
     # via
     #   -r ../requirements.txt
@@ -37,6 +39,10 @@ certifi==2024.2.2
     #   httpcore
     #   httpx
     #   requests
+cffi==1.16.0
+    # via
+    #   -r ../requirements.txt
+    #   cryptography
 cfgv==3.4.0
     # via pre-commit
 charset-normalizer==3.3.2
@@ -63,8 +69,16 @@ click-repl==0.3.0
     # via
     #   -r ../requirements.txt
     #   celery
+cryptography==42.0.5
+    # via
+    #   -r ../requirements.txt
+    #   python-jose
 distlib==0.3.8
     # via virtualenv
+ecdsa==0.19.0
+    # via
+    #   -r ../requirements.txt
+    #   python-jose
 exceptiongroup==1.2.0
     # via
     #   -r ../requirements.txt
@@ -129,6 +143,15 @@ prompt-toolkit==3.0.43
     #   click-repl
 psycopg2-binary==2.9.9
     # via -r ../requirements.txt
+pyasn1==0.6.0
+    # via
+    #   -r ../requirements.txt
+    #   python-jose
+    #   rsa
+pycparser==2.22
+    # via
+    #   -r ../requirements.txt
+    #   cffi
 pydantic==2.6.4
     # via
     #   -r ../requirements.txt
@@ -150,6 +173,12 @@ python-dotenv==1.0.1
     # via
     #   -r ../requirements.txt
     #   pydantic-settings
+python-jose[cryptography]==3.3.0
+    # via
+    #   -r ../requirements.txt
+    #   python-jose
+python-multipart==0.0.9
+    # via -r ../requirements.txt
 pyyaml==6.0.1
     # via pre-commit
 redis==5.0.3
@@ -160,9 +189,14 @@ requests==2.31.0
     # via
     #   -r ../requirements.txt
     #   mlb-statsapi
+rsa==4.9
+    # via
+    #   -r ../requirements.txt
+    #   python-jose
 six==1.16.0
     # via
     #   -r ../requirements.txt
+    #   ecdsa
     #   python-dateutil
 sniffio==1.3.1
     # via

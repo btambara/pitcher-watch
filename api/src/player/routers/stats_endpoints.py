@@ -1,10 +1,11 @@
-from typing import List, Optional
+from typing import Annotated, List, Optional
 
 from api.deps import get_db
 from fastapi import APIRouter, Depends, HTTPException
 from player.crud import stats_crud
 from player.models.player import Stats
 from player.schemas import stats_schemas
+from security.helpers import get_current_user
 from sqlalchemy.orm import Session
 
 router = APIRouter()
@@ -13,6 +14,7 @@ router = APIRouter()
 @router.post("/{mlb_id}", response_model=stats_schemas.Stats)  # type: ignore[misc]
 async def create_stats(
     *,
+    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     mlb_id: int,
     stats: stats_schemas.StatsCreate,
@@ -42,6 +44,7 @@ async def read_stats(
 @router.put("/{id}", response_model=stats_schemas.Stats)  # type: ignore[misc]
 async def update_stats(
     *,
+    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     id: int,
     stats_in: stats_schemas.StatsUpdate,
@@ -59,6 +62,7 @@ async def update_stats(
 @router.delete("/{id}", response_model=stats_schemas.Stats)  # type: ignore[misc]
 async def delete_stats(
     *,
+    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     id: int,
 ) -> Optional[Stats]:

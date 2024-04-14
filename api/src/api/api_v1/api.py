@@ -5,6 +5,7 @@ from player.routers import (
     players_endpoints,
     stats_endpoints,
 )
+from user import user_endpoints
 
 player_router = APIRouter()
 player_router.include_router(
@@ -17,3 +18,6 @@ player_router.include_router(
     pitches_endpoints.router, prefix="/player/pitches", tags=["pitches"]
 )
 player_router.include_router(celery_endpoints.router, prefix="/celery", tags=["celery"])
+player_router.include_router(
+    user_endpoints.router, prefix="/authenticate", tags=["Authentication"]
+)
