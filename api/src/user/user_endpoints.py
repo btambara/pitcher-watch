@@ -67,7 +67,7 @@ async def get_user_by_id(
     return user
 
 
-@router.get("/email", response_model=user_schemas.User)  # type: ignore[misc]
+@router.get("/email/{email}", response_model=user_schemas.User)  # type: ignore[misc]
 async def get_user_by_email(
     *,
     db: Session = Depends(get_db),

@@ -1,6 +1,7 @@
 import logging
 import random
 
+from auth_token.token_model import Token
 from fastapi.testclient import TestClient
 
 random_mlb_id = random.randint(100000, 999999)
@@ -14,10 +15,13 @@ test_player = {
 }
 
 
-def test_create_player_endpoint(test_client: TestClient) -> None:
+def test_create_player_endpoint(
+    get_test_user_token: Token, test_client: TestClient
+) -> None:
     response = test_client.post(
         "/api/v1/players/",
         json=test_player,
+        headers={"Authorization": f"Bearer {get_test_user_token.access_token}"},
     )
 
     assert response.status_code == 200
@@ -84,11 +88,17 @@ def test_get_player_by_primary_number_endpoint(test_client: TestClient) -> None:
     assert response_json["stats"] == []
 
 
-def test_update_player_endpoint(test_client: TestClient) -> None:
+def test_update_player_endpoint(
+    get_test_user_token: Token, test_client: TestClient
+) -> None:
     update_test_player = test_player.copy()
     update_test_player["full_name"] = "New Test Name"
 
-    response = test_client.put("/api/v1/players/1", json=update_test_player)
+    response = test_client.put(
+        "/api/v1/players/1",
+        json=update_test_player,
+        headers={"Authorization": f"Bearer {get_test_user_token.access_token}"},
+    )
 
     assert response.status_code == 200
 
@@ -104,7 +114,12 @@ def test_update_player_endpoint(test_client: TestClient) -> None:
     assert response_json["stats"] == []
 
 
-def test_delete_player_endpoint(test_client: TestClient) -> None:
-    response = test_client.delete("/api/v1/players/1")
+def test_delete_player_endpoint(
+    get_test_user_token: Token, test_client: TestClient
+) -> None:
+    response = test_client.delete(
+        "/api/v1/players/1",
+        headers={"Authorization": f"Bearer {get_test_user_token.access_token}"},
+    )
 
     assert response.status_code == 200

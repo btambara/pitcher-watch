@@ -10,7 +10,8 @@ settings = get_settings()
 
 
 def get_password_hash(password: str) -> str:
-    return bcrypt.hash(password, bcrypt.gensalt())  # type: ignore[no-any-return]
+    pw_hash = bcrypt.hashpw(bytes(password, "utf-8"), bcrypt.gensalt())
+    return pw_hash.decode("utf-8")  # type: ignore[no-any-return]
 
 
 def get_user_by_id(db: Session, id: int) -> Optional[User]:
