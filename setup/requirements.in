@@ -8,3 +8,6 @@ celery
 celery[redis]
 pydantic-settings
 httpx
+bcrypt
+python-jose[cryptography]
+python-multipart

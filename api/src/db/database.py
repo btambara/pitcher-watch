@@ -1,11 +1,13 @@
 from typing import Annotated
 
+from auth_token import token_model
 from fastapi import Depends
 from player.models import player
 from settings.config import Settings, get_settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
+from user import user_model
 
 
 def get_session_local(settings: Annotated[Settings, Depends(get_settings)]) -> Session:
@@ -23,5 +25,7 @@ def get_session_local(settings: Annotated[Settings, Depends(get_settings)]) -> S
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
     player.Base.metadata.create_all(bind=engine)
+    token_model.Base.metadata.create_all(bind=engine)
+    user_model.Base.metadata.create_all(bind=engine)
 
     return SessionLocal()

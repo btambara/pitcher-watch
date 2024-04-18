@@ -1,10 +1,11 @@
-from typing import List, Optional
+from typing import Annotated, List, Optional
 
 from api.deps import get_db
 from fastapi import APIRouter, Depends, HTTPException
 from player.crud import player_crud
 from player.models.player import Player
 from player.schemas import player_schemas
+from security.helpers import get_current_user
 from sqlalchemy.orm import Session
 
 router = APIRouter()
@@ -13,6 +14,7 @@ router = APIRouter()
 @router.post("/", response_model=player_schemas.Player)  # type: ignore[misc]
 async def create_player(
     *,
+    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     player: player_schemas.PlayerCreate,
 ) -> Player:
@@ -88,6 +90,7 @@ async def read_player_by_primary_number(
 @router.put("/{id}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def update_player(
     *,
+    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     id: int,
     player_in: player_schemas.PlayerUpdate,
@@ -105,6 +108,7 @@ async def update_player(
 @router.delete("/{id}", response_model=player_schemas.Player)  # type: ignore[misc]
 async def delete_player(
     *,
+    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     id: int,
 ) -> Optional[Player]:
