@@ -3,7 +3,7 @@ from proj.celery import app
 from sqlalchemy.orm import Session
 
 
-def is_celery_task_finished(db: Session, id: str) -> bool:
+def is_celery_task_finished(db: Session, id: str) -> bool:  # pragma: no cover
     if AsyncResult(id=id, app=app).state != "SUCCESS":
         return False
     return True

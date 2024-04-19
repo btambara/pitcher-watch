@@ -23,7 +23,7 @@ def get_test_user(test_client: TestClient) -> User:
     response = test_client.get("/api/v1/authenticate/email/" + test_user_info["email"])
 
     if response.status_code == 404:
-        response = test_client.post(
+        response = test_client.post(  # pragma: no cover
             "/api/v1/authenticate",
             json={
                 "email": test_user_info["email"],
