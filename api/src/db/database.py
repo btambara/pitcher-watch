@@ -20,7 +20,7 @@ def get_session_local(settings: Annotated[Settings, Depends(get_settings)]) -> S
             poolclass=StaticPool,
         )
     else:
-        engine = create_engine(SQLALCHEMY_DATABASE_URL)
+        engine = create_engine(SQLALCHEMY_DATABASE_URL)  # pragma: no cover
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

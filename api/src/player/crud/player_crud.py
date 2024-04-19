@@ -19,7 +19,9 @@ def get_all_players(
     all_players = db.query(Player).offset(skip).limit(limit).all()
 
     if len(all_players) == 0 and settings.environment != "TEST":
-        for team in statsapi.get("teams", {"sportId": 1})["teams"]:
+        for team in statsapi.get("teams", {"sportId": 1})[
+            "teams"
+        ]:  # pragma: no cover (This will call MLB api, so for now I'm not testing this)
             for player in statsapi.get(
                 "team_roster", {"teamId": team["id"], "rosterType": "40Man"}
             )["roster"]:
@@ -39,7 +41,9 @@ def get_all_players(
                     )
                     create_player(db, player_create)
 
-        all_players = db.query(Player).offset(skip).limit(limit).all()
+        all_players = (
+            db.query(Player).offset(skip).limit(limit).all()
+        )  # pragma: no cover (This will call MLB api, so for now I'm not testing this)
 
     if not position:
         return all_players  # type: ignore[no-any-return]
