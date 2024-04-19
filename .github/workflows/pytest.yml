@@ -17,4 +17,4 @@ jobs:
         pip install -r setup/requirements.txt -r setup/development/requirements.txt
     - name: Test with pytest
       run: |
-        pytest
+        pytest --cov=api api/src

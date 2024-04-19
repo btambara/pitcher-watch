@@ -1,4 +1,3 @@
-import logging
 import random
 
 from auth_token.token_model import Token
@@ -59,7 +58,6 @@ def test_get_player_by_full_name_endpoint(test_client: TestClient) -> None:
     assert response.status_code == 200
 
     response_json = response.json()
-    logging.getLogger(__name__).info(response_json)
     assert response_json["mlb_id"] == test_player["mlb_id"]
     assert response_json["full_name"] == test_player["full_name"]
     assert response_json["primary_number"] == test_player["primary_number"]
