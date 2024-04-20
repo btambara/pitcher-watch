@@ -1,5 +1,7 @@
 # pitcher-watch
 
+This web application focuses on MLB pitchers and aims to display useful statistical information and highlights.
+
 ![pre-commit Action](https://github.com/btambara/pitcher-watch/actions/workflows/pre-commit.yml/badge.svg)
 ![pytest Action](https://github.com/btambara/pitcher-watch/actions/workflows/pytest.yml/badge.svg)
 ![vitest Action](https://github.com/btambara/pitcher-watch/actions/workflows/vitest.yml/badge.svg)
