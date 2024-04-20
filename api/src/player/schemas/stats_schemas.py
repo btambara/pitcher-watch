@@ -24,6 +24,8 @@ class StatType(StatTypeBase):
 class StatsBase(BaseModel):  # type:ignore[misc]
     season: int
     team_id: int
+    mlb_id: int
+    stats: list[StatType] = []
 
 
 class StatsCreate(StatsBase):
@@ -38,5 +40,3 @@ class Stats(StatsBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    mlb_id: int
-    stats: list[StatType] = []
