@@ -45,7 +45,7 @@ function handler(pitcher: object) {
     <v-row justify="center" align-center>
       <v-col cols="12" sm="7" md="5" lg="5" xl="5">
         <v-progress-linear indeterminate v-show="!ready"></v-progress-linear>
-        <PitcherWatchLogo></PitcherWatchLogo>
+        <PitcherWatchLogo v-show="ready"></PitcherWatchLogo>
         <v-autocomplete
           v-show="ready"
           :items="pitchers"
