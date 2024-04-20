@@ -4,7 +4,11 @@ ENV PYTHONPATH "${PYTHONPATH}:/api/src"
 
 WORKDIR /api
 
+RUN addgroup --system celery && adduser --system celery --ingroup  celery
+
 COPY setup/requirements.txt /api/requirements.txt
 COPY api /api/
 
 RUN pip install --no-cache-dir -r requirements.txt
+
+USER celery
