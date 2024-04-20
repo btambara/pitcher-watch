@@ -22,7 +22,9 @@ def get_player_stats(
         db.query(Stats).filter(Stats.mlb_id == mlb_id).offset(skip).limit(limit).all()
     )
 
-    if len(player_stats) == 0:
+    if (
+        len(player_stats) == 0
+    ):  # pragma: no cover (This will call MLB api, so for now I'm not testing this)
         player_data = statsapi.player_stat_data(
             mlb_id, group="pitching", type="career"
         )["stats"]
@@ -78,7 +80,7 @@ def update_stats(db: Session, id: int, stats_in: StatsUpdate) -> Optional[Stats]
     db_stats.mlb_id = stats_in.mlb_id
     db_stats.season = stats_in.season
     db_stats.team_id = stats_in.team_id
-    db.stats.stats = stats_in.stats
+    db_stats.stats = stats_in.stats
 
     db.add(db_stats)
     db.commit()
@@ -86,7 +88,9 @@ def update_stats(db: Session, id: int, stats_in: StatsUpdate) -> Optional[Stats]
     return db_stats  # type: ignore[no-any-return]
 
 
-def create_stat_type(db: Session, stat_type: StatTypeCreate, stats_id: int) -> StatType:
+def create_stat_type(
+    db: Session, stat_type: StatTypeCreate, stats_id: int
+) -> StatType:  # pragma: no cover (This is only called when we call get_player_stats)
     db_stat_type = StatType(
         stat=stat_type.stat, value=stat_type.value, stats_id=stats_id
     )
@@ -97,7 +101,11 @@ def create_stat_type(db: Session, stat_type: StatTypeCreate, stats_id: int) -> S
     return db_stat_type
 
 
-def remove_stat_type(db: Session, id: int) -> Optional[StatType]:
+def remove_stat_type(
+    db: Session, id: int
+) -> Optional[
+    StatType
+]:  # pragma: no cover (This is only called when we call get_player_stats)
     db_stat_type = db.query(Stats).filter(StatType.id == id).first()
     db.delete(db_stat_type)
     db.commit()
@@ -106,7 +114,9 @@ def remove_stat_type(db: Session, id: int) -> Optional[StatType]:
 
 def update_stat_type(
     db: Session, id: int, stat_type_in: StatTypeUpdate
-) -> Optional[StatType]:
+) -> Optional[
+    StatType
+]:  # pragma: no cover (This is only called when we call get_player_stats)
     db_stat_type = db.query(Stats).filter(Stats.id == id).first()
     db_stat_type.stat = stat_type_in.stat
     db_stat_type.value = stat_type_in.value

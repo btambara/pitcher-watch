@@ -24,3 +24,10 @@ bash scripts/pre-commit-fix.sh
 // Manual migrations run
 alembic revision -m "Create player table"
 ```
+
+## Run [pytest](https://docs.pytest.org/en/8.0.x/) locally
+
+``` bash
+// Run test locally
+bash scripts/run-pytest.sh
+```
