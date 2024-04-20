@@ -1,4 +1,4 @@
-name: Runs All Vitest Unit tests
+name: vi-test Unit Tests
 
 on:
     pull_request:

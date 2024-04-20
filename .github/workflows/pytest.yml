@@ -1,4 +1,4 @@
-name: Runs All pytest Unit tests
+name: pytest Unit Tests
 
 on:
   pull_request:
