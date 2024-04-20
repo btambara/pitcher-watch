@@ -13,10 +13,8 @@ def get_player(db: Session, id: int) -> Optional[Player]:
     return db.query(Player).filter(Player.id == id).first()  # type: ignore[no-any-return]
 
 
-def get_all_players(
-    db: Session, position: str | None = None, skip: int = 0, limit: int = 100
-) -> List[Player]:
-    all_players = db.query(Player).offset(skip).limit(limit).all()
+def get_all_players(db: Session, position: str | None = None) -> List[Player]:
+    all_players = db.query(Player).all()
 
     if len(all_players) == 0 and settings.environment != "TEST":
         for team in statsapi.get("teams", {"sportId": 1})[
@@ -41,19 +39,15 @@ def get_all_players(
                     )
                     create_player(db, player_create)
 
-        all_players = (
-            db.query(Player).offset(skip).limit(limit).all()
-        )  # pragma: no cover (This will call MLB api, so for now I'm not testing this)
+        all_players = db.query(
+            Player
+        ).all()  # pragma: no cover (This will call MLB api, so for now I'm not testing this)
 
     if not position:
         return all_players  # type: ignore[no-any-return]
     else:
         return (  # type: ignore[no-any-return]
-            db.query(Player)
-            .filter(Player.primary_position_code == position)
-            .offset(skip)
-            .limit(limit)
-            .all()
+            db.query(Player).filter(Player.primary_position_code == position).all()
         )
 
 
