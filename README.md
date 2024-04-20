@@ -7,40 +7,40 @@
 ## Tech Stack
 
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![Celery](https://img.shields.io/badge/celery-%23a9cc54.svg?style=for-the-badge&logo=celery&logoColor=ddf4a4)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
 ![Vuetify](https://img.shields.io/badge/Vuetify-1867C0?style=for-the-badge&logo=vuetify&logoColor=AEDDFF)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-## Recommended IDE Setup
+## Development Environment
+
+### Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar).
 
-## [pip-tools](https://pypi.org/project/pip-tools/)
+### [pip-tools](https://pypi.org/project/pip-tools/) - Setup Dev Environment
 
 ``` bash
-// Setup Dev Environment
 pip-sync setup/requirements.txt setup/development/requirements.txt
 ```
 
-## [pre-commit](https://pre-commit.com/)
+### [pre-commit](https://pre-commit.com/) - Fixes all formating/lint issues
 
 ``` bash
-// Fixes all issues
 bash scripts/pre-commit-fix.sh
 ```
 
-## [SQLAlchemy](https://www.sqlalchemy.org/)
+### [SQLAlchemy](https://www.sqlalchemy.org/) - Manual migrations run
 
 ``` bash
-// Manual migrations run
 alembic revision -m "Create player table"
 ```
 
-## Run [pytest](https://docs.pytest.org/en/8.0.x/) locally
+### [pytest](https://docs.pytest.org/en/8.0.x/) - Run test locally
 
 ``` bash
-// Run test locally
 bash scripts/run-pytest.sh
 ```
