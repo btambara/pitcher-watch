@@ -1,6 +1,8 @@
 # pitcher-watch
 
 ![pre-commit Action](https://github.com/btambara/pitcher-watch/actions/workflows/pre-commit.yml/badge.svg)
+![pytest Action](https://github.com/btambara/pitcher-watch/actions/workflows/pytest.yml/badge.svg)
+![vitest Action](https://github.com/btambara/pitcher-watch/actions/workflows/vitest.yml/badge.svg)
 
 ## Tech Stack
 
