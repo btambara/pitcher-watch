@@ -19,6 +19,16 @@ This web application focuses on MLB pitchers and aims to display useful statisti
 
 ## Development Environment
 
+Rename `.env copy` to `.env`.
+
+``` bash
+openssl rand -base64 48
+```
+
+Copy and Paste this value in `SECRET_KEY` in `.env`
+
+Fill out the keys with the proper values.
+
 ### Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar).
