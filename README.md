@@ -1,5 +1,7 @@
 # pitcher-watch
 
+![pre-commit Action](https://github.com/btambara/pitcher-watch/actions/workflows/pre-commit.yml/badge.svg)
+
 ## Tech Stack
 
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
