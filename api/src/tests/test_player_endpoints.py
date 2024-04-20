@@ -38,10 +38,14 @@ def test_create_player_endpoint(
 
 
 def test_get_player_by_id_endpoint(test_client: TestClient) -> None:
-    response = test_client.get("/api/v1/players/1")
+    response = test_client.get("/api/v1/players/name/" + str(test_player["full_name"]))
 
     assert response.status_code == status.HTTP_200_OK
     response_json = response.json()
+    response = test_client.get("/api/v1/players/" + str(response_json["id"]))
+
+    assert response.status_code == status.HTTP_200_OK
+
     assert response_json["mlb_id"] == test_player["mlb_id"]
     assert response_json["full_name"] == test_player["full_name"]
     assert response_json["primary_number"] == test_player["primary_number"]
@@ -149,17 +153,22 @@ def test_read_all_players_endpoint_without_position(test_client: TestClient) -> 
     assert response.status_code == status.HTTP_200_OK
 
     response_json = response.json()
-    assert len(response_json) == 1
+    assert len(response_json) == 2
 
 
 def test_update_player_endpoint(
     get_test_user_token: Token, test_client: TestClient
 ) -> None:
+    response = test_client.get("/api/v1/players/name/" + str(test_player["full_name"]))
+
+    assert response.status_code == status.HTTP_200_OK
+    response_json = response.json()
+
     update_test_player = test_player.copy()
     update_test_player["full_name"] = "New Test Name"
 
     response = test_client.put(
-        "/api/v1/players/1",
+        "/api/v1/players/" + str(response_json["id"]),
         json=update_test_player,
         headers={"Authorization": f"Bearer {get_test_user_token.access_token}"},
     )

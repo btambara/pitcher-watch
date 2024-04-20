@@ -100,7 +100,9 @@ async def create_pitch_type(
     db: Session = Depends(get_db),
     id: int,
     pitch_type: pitches_schemas.PitchTypeCreate,
-) -> PitchType:
+) -> (
+    PitchType
+):  # pragma: no cover (This is only called when we call read_all_pitches_by_mlb_id)
     """
     Create a pitch type.
     """
@@ -115,7 +117,9 @@ async def read_pitch_types(
     *,
     db: Session = Depends(get_db),
     id: int,
-) -> Pitches:
+) -> (
+    Pitches
+):  # pragma: no cover (This is only called when we call read_all_pitches_by_mlb_id)
     """
     Get pitch types by ID.
     """
