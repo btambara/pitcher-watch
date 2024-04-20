@@ -7,6 +7,7 @@ on:
 
 jobs:
   pytest:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -17,4 +18,10 @@ jobs:
         pip install -r setup/requirements.txt -r setup/development/requirements.txt
     - name: Test with pytest
       run: |
-        pytest --cov-report term-missing --cov=api api/src
+        pytest --junitxml pytest.xml --cov-report term-missing --cov=api api/src | tee pytest-coverage.txt
+    - name: Pytest coverage comment
+      uses: MishaKav/pytest-coverage-comment@main
+      with:
+        pytest-coverage-path: ./pytest-coverage.txt
+        junitxml-path: ./pytest.xml
+        badge-title: pytest Coverage
