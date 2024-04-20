@@ -9,7 +9,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=Dict[str, bool])  # type: ignore[misc]
-async def check_celery_task(
+async def check_celery_task(  # pragma: no cover (unable to test celery)
     *,
     db: Session = Depends(get_db),
     id: str,

@@ -143,6 +143,15 @@ def test_read_all_players_endpoint(test_client: TestClient) -> None:
     assert len(response_json) == 1
 
 
+def test_read_all_players_endpoint_without_position(test_client: TestClient) -> None:
+    response = test_client.get("/api/v1/players/?skip=0&limit=100")
+
+    assert response.status_code == status.HTTP_200_OK
+
+    response_json = response.json()
+    assert len(response_json) == 1
+
+
 def test_update_player_endpoint(
     get_test_user_token: Token, test_client: TestClient
 ) -> None:
