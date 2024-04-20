@@ -19,15 +19,17 @@ This web application focuses on MLB pitchers and aims to display useful statisti
 
 ## Development Environment
 
-Rename `.env copy` to `.env`.
+First, rename `.env copy` to `.env`.
+
+Run:
 
 ``` bash
 openssl rand -base64 48
 ```
 
-Copy and Paste this value in `SECRET_KEY` in `.env`
+Next, copy and paste the openssl return value in `SECRET_KEY` in `.env`
 
-Fill out the keys with the proper values.
+Finally, fill out the keys with the proper values.
 
 ### Recommended IDE Setup
 
