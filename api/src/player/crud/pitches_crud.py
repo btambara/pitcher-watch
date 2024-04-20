@@ -23,7 +23,9 @@ def get_player_pitches(
         .all()
     )
 
-    if len(pitches) == 0:
+    if (
+        len(pitches) == 0
+    ):  # pragma: no cover (This will call MLB api, so for now I'm not testing this)
         season_start = statsapi.latest_season()["regularSeasonStartDate"]
         season_start_date = datetime.strptime(season_start, "%Y-%m-%d").date()
         today_date = datetime.now().date()
@@ -82,7 +84,7 @@ def update_pitches(
     db_pitches.mlb_id = pitches_in.mlb_id
     db_pitches.season = pitches_in.season
     db_pitches.team_id = pitches_in.team_id
-    db.db_pitches.stats = pitches_in.pitches
+    db_pitches.stats = pitches_in.pitches
 
     db.add(db_pitches)
     db.commit()
@@ -90,7 +92,7 @@ def update_pitches(
     return db_pitches  # type: ignore[no-any-return]
 
 
-def create_pitch_type(
+def create_pitch_type(  # pragma: no cover (This is only called when we call get_player_pitches)
     db: Session, pitch_type: PitchTypeCreate, pitches_id: int
 ) -> PitchType:
     db_pitch_type = PitchType(
@@ -103,11 +105,15 @@ def create_pitch_type(
     return db_pitch_type
 
 
-def get_pitch_type(db: Session, id: int) -> Optional[PitchType]:
+def get_pitch_type(
+    db: Session, id: int
+) -> Optional[
+    PitchType
+]:  # pragma: no cover (This is only called when we call get_player_pitches)
     return db.query(PitchType).filter(PitchType.id == id).first()  # type: ignore[no-any-return]
 
 
-def update_pitch_type(
+def update_pitch_type(  # pragma: no cover (This is only called when we call get_player_pitches)
     db: Session, id: int, pitch_type_in: PitchesUpdate
 ) -> Optional[PitchType]:
     db_pitch_type = db.query(PitchType).filter(PitchType.id == id).first()
@@ -121,7 +127,11 @@ def update_pitch_type(
     return db_pitch_type  # type: ignore[no-any-return]
 
 
-def remove_pitch_type(db: Session, id: int) -> Optional[PitchType]:
+def remove_pitch_type(
+    db: Session, id: int
+) -> Optional[
+    PitchType
+]:  # pragma: no cover (This is only called when we call get_player_pitches)
     db_pitch_type = db.query(PitchType).filter(PitchType.id == id).first()
     db.delete(db_pitch_type)
     db.commit()

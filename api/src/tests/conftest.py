@@ -51,7 +51,9 @@ def get_test_user(test_client: TestClient) -> User:
 @pytest.fixture  # type: ignore[misc]
 def get_test_player(get_test_user_token: Token, test_client: TestClient) -> Player:
     response = test_client.get("/api/v1/players/mlb/" + str(test_player["mlb_id"]))
+    import logging
 
+    logging.getLogger(__name__).info(response)
     if response.status_code == 404:
         response = test_client.post(
             "/api/v1/players/",
