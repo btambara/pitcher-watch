@@ -30,7 +30,7 @@ def get_player_stats(
         )["stats"]
         if player_data:
             career_stats = player_data[0]
-            stats_create = StatsCreate(season=-1, team_id=-1)
+            stats_create = StatsCreate(season=-1, team_id=-1, mlb_id=mlb_id)
             db_career_stats = create_stats(db, stats_create, mlb_id)
 
             for stat, value in career_stats["stats"].items():
@@ -41,7 +41,9 @@ def get_player_stats(
             mlb_id, group="pitching", type="yearByYear"
         )
         for season_stats in year_by_year_stats["stats"]:
-            stats_create = StatsCreate(season=season_stats["season"], team_id=-1)
+            stats_create = StatsCreate(
+                season=season_stats["season"], team_id=-1, mlb_id=mlb_id
+            )
             db_season_stat = create_stats(db, stats_create, mlb_id)
 
             for stat, value in season_stats["stats"].items():
