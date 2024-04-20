@@ -2,6 +2,7 @@
 import PlayerSheet from "./PlayerSheet.vue";
 import pitchersJSON from "../assets/pitchers.json";
 import { getTeamName, getTeamLogo } from "../helpers";
+import PitcherWatchLogo from "../components/PitcherWatchLogo.vue";
 import { ref } from "vue";
 const pitchers = defineModel();
 const pitcherDialog = ref(false);
@@ -44,7 +45,7 @@ function handler(pitcher: object) {
     <v-row justify="center" align-center>
       <v-col cols="12" sm="7" md="5" lg="5" xl="5">
         <v-progress-linear indeterminate v-show="!ready"></v-progress-linear>
-        <div class="text-h3 mb-4" v-show="ready">Search</div>
+        <PitcherWatchLogo></PitcherWatchLogo>
         <v-autocomplete
           v-show="ready"
           :items="pitchers"
