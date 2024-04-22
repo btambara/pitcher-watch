@@ -14,7 +14,6 @@ router = APIRouter()
 @router.post("/{mlb_id}", response_model=pitches_schemas.Pitches)  # type: ignore[misc]
 async def create_pitches(
     *,
-    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     mlb_id: int,
     pitches: pitches_schemas.PitchesCreate,
@@ -96,7 +95,6 @@ async def read_all_pitches_by_mlb_id(
 @router.post("/pitch_type/{id}", response_model=pitches_schemas.PitchType)  # type: ignore[misc]
 async def create_pitch_type(
     *,
-    token: Annotated[str, Depends(get_current_user)],
     db: Session = Depends(get_db),
     id: int,
     pitch_type: pitches_schemas.PitchTypeCreate,
