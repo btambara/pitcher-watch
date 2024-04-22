@@ -24,7 +24,6 @@ class PitchType(PitchTypeBase):
 class PitchesBase(BaseModel):  # type:ignore[misc]
     season: int
     team_id: int
-    mlb_id: int
     pitches: list[PitchType] = []
 
 
@@ -40,3 +39,4 @@ class Pitches(PitchesBase):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    mlb_id: int
